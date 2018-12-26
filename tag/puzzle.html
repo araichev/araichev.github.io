@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Blog - puzzle</title>
+    <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
+<!-- Using MathJax, with the delimiters $ -->
+<!-- Conflict with pygments for the .mo and .mi -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+    styles: {
+    ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+    },
+    // tex2jax: {inlineMath: [['%','$'], ['\\(','\\)']],processEscapes: true}
+    tex2jax: {inlineMath: [['\\(','\\)']],processEscapes: true}
+    });
+    MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+    MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>    <meta charset="utf-8">
+
+<body>
+    <header>
+      <h1>Alex Raichev</h1>
+      <span id="graph"></span>
+    </header>
+
+    <nav>
+<ul>
+          <li><a href="/index.html"
+>Welcome</a></li>
+<li>&middot;<li>          <li><a href="/pages/works.html"
+>Works</a></li>
+<li>&middot;<li>          <li><a href="/blog.html"
+              class="active"
+>Blog</a></li>
+<li>&middot;<li>          <li><a href="/archives.html"
+>Blogindex</a></li>
+      </ul>
+    </nav>
+
+    <div id="mainContent">
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/what-is-this.html">What is This?</a></h1>
+      <p>Can you guess what this Chinese-made product is, given the following product description printed on its box?  Not to give it away too easily, i've replaced one word with +++.</p>
+<ol class="arabic simple">
+<li>This product is a new science and technology product and made with high and new science and technology.  It can illuminate only placing it in rhythm.</li>
+<li>No need any power.  No environmental pollution.  Low noise and health.  Comparing with common +++ it can be several times on lift.</li>
+<li>Constantly using this health +++, it can benefit to your palm, arm and shoulder stretching and blood circulation, so as to let your hands relax and brain clever, hand and brain coordinate and promote your brain memory and health composition.</li>
+</ol>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-10-20<br>
+          Tags:
+            <a href="https://raichev.net/tag/puzzle.html">
+            puzzle</a><br />
+        <a href="https://raichev.net/what-is-this.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/what-is-this.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/store-credit.html">Store Credit</a></h1>
+      <p>Here's the store credit problem from <a class="reference external" href="http://code.google.com/codejam/contest/dashboard?c=351101#s=p0">Google Code Jam Qualification Round Africa 2010</a>, which i discovered via <a class="reference external" href="http://programmingpraxis.com">Programming Praxis</a>:</p>
+<p>You receive a credit C at a local store and would like to buy two items. You first walk through the store and create a list L of all available items. From this list you would like to buy two items that add up to the entire value of the credit. The solution you provide will consist of the two integers indicating the positions of the items in your list (smaller number first). For instance, with C=100 and L={5,75,25} the solution is 2,3; with C=200 and L={150,24,79,50,88,345,3} the solution is 1,4; and with C=8 and L={2,1,9,4,4,56,90,3} the solution is 4,5.</p>
+<div class="section" id="algorithm-1">
+<h2>Algorithm 1</h2>
+<p>Brute force. Test all pairs in the list. O(n^2) time and O(n) space.</p>
+</div>
+<div class="section" id="algorithm-2">
+<h2>Algorithm 2</h2>
+<p>Sort the list and then iterate over the list, at each step looking for the complementary price of the current price via binary search.
+O(n lg n) time and O(n) space.</p>
+</div>
+<div class="section" id="algorithm-3">
+<h2>Algorithm 3</h2>
+<p>Store the prices and indices in a dictionary and then iterate over the dictionary, at each step looking for the complementary price. Since dictionary look-up is constant time on average, this is an O(n) time (in the average case) and O(n) space algorithm.  Hooray!</p>
+<p>Here's a Python 2.7 implementation:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_pair</span><span class="p">(</span><span class="n">credit</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
+    <span class="c1"># Make a dictionary with items of the form</span>
+    <span class="c1"># (price, set of indices of items with that price).</span>
+    <span class="c1"># Note that the price list could contain duplicate prices.</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># + 1 to index from 1 instead of 0.</span>
+    <span class="k">for</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">price</span> <span class="o">&lt;=</span> <span class="n">credit</span><span class="p">:</span>
+            <span class="c1"># Remove price index from d.</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="c1"># Check whether there&#39;s a complementary price in d.</span>
+            <span class="k">if</span> <span class="n">credit</span> <span class="o">-</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="c1"># This works even if price == credit - price.</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">credit</span> <span class="o">-</span> <span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="c1"># Reinsert price index into d.</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;Sorry, no pair of item costs sum to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">credit</span>
+</pre></div>
+</div>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-04-11<br>
+          Tags:
+            <a href="https://raichev.net/tag/algorithm.html">
+            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
+            puzzle</a><br />
+        <a href="https://raichev.net/store-credit.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/store-credit.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/cat-vs-dog.html">Cat Vs. Dog</a></h1>
+      <p>Updated for clarity 23 Sep 2013.</p>
+<p>A friend of mine recently pointed me to Spotify's <a class="reference external" href="https://www.spotify.com/us/jobs/tech/catvsdog/">Cat vs. Dog puzzle</a>.
+The question is long, and so i'll summarize it without its motivating context.</p>
+<p>You are given n votes, each of which is a pair of strings of the form <span class="formula">(<i>Ci</i>, <i>Dj</i>)</span> (a cat-lover vote) or <span class="formula">(<i>Dj</i>, <i>Ci</i>)</span> (a dog-lover) for some integers <span class="formula">1 ≤ <i>i</i>, <i>j</i> ≤ <i>n</i></span>.
+This collection of votes can contain repeats.
+Two votes <span class="formula">(<i>a</i>, <i>b</i>)</span> and <span class="formula">(<i>c</i>, <i>d</i>)</span> are said to conflict if <span class="formula"><i>a</i> = <i>d</i></span> or <span class="formula"><i>b</i> = <i>c</i></span>.
+So a conflict can only occur between a cat-lover vote and a dog-lover vote.
+Your job is to find the size of a maximal subcollection of the votes in which no two votes conflict.</p>
+<div class="section" id="algorithm-1">
+<h2>Algorithm 1</h2>
+<p>Brute-force.
+Run through all possible subcollections of votes and test each for conflicts.
+Choose the biggest non-conflicting subcollection.</p>
+<p>This procedure would take <span class="formula"><i>O</i>(2<sup><i>n</i></sup>)</span> time in the worst case, because there are <span class="formula">2<sup><i>n</i></sup></span> subcollections to check.
+That's very slow.
+Can we be more clever?</p>
+</div>
+<div class="section" id="algorithm-2">
+<h2>Algorithm 2</h2>
+<p>Yes, model the problem with a graph.</p>
+<ol class="arabic simple">
+<li>Distinguish the votes by tagging each with a unique identifier, such as an integer between <span class="formula">1</span> and <span class="formula"><i>n</i></span>.  This takes <span class="formula"><i>O</i>(<i>n</i>)</span> time.</li>
+<li>Build the following undirected graph <span class="formula"><i>G</i></span>. Make each vote a vertex, and add the edge <span class="formula">{<i>u</i>, <i>v</i>}</span> if <span class="formula"><i>u</i></span> and <span class="formula"><i>v</i></span> are conflicting votes. This takes <span class="formula"><i>O</i>(<i>n</i><sup>2</sup>)</span> time.  Notice that <span class="formula"><i>G</i></span> is bipartite, because every edge connects a cat-lover vote to a dog-lover vote and no vertex is both a cat-lover vote and a dog-lover vote.</li>
+<li>Notice that every maximal subset of nonconflicting votes is the complement of a minimum vertex cover for <span class="formula"><i>G</i></span>.  So find the size <span class="formula"><i>k</i></span> of a minimum vertex cover for <span class="formula"><i>G</i></span> and return <span class="formula"><i>n</i> − <i>k</i></span>.  Now, <a class="reference external" href="https://en.wikipedia.org/wiki/Minimum_vertex_cover">finding the size of a minimum vertex cover in an arbitrary undirected graph is an NP-complete problem</a>, and there's no known sub-exponential time way to do that.  However, our graph is bipartite, and so by <a class="reference external" href="http://en.wikipedia.org/wiki/K%C3%B6nig%27s_theorem_%28graph_theory%29">Koenig's theorem</a>, the size of a minimum vertex cover of <span class="formula"><i>G</i></span> equals the size of a maximum matching for <span class="formula"><i>G</i></span>, the latter of which can be found by the <a class="reference external" href="https://en.wikipedia.org/wiki/Hopcroft%E2%80%93Karp_algorithm">Hopcroft-Karp algorithm</a> in <span class="formula"><i>O</i>(|<i>E</i>|<span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>n</i></span><span class="ignored">)</span></span>)</span> time, where <span class="formula">|<i>E</i>|</span> is the number of edges in <span class="formula"><i>G</i></span>.  In the worst case, <span class="formula">|<i>E</i>| = <i>n</i><sup>2</sup></span> and running Hopcroft-Karp takes <span class="formula"><i>O</i>(<i>n</i><sup>2.5</sup>)</span> time.</li>
+</ol>
+<p>So all up, Algorithm 2 takes <span class="formula"><i>O</i>(<i>n</i><sup>2.5</sup>)</span> time in the worst case.</p>
+</div>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-04-02<br>
+          Tags:
+            <a href="https://raichev.net/tag/algorithm.html">
+            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
+            puzzle</a><br />
+        <a href="https://raichev.net/cat-vs-dog.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/cat-vs-dog.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/jumping-jack.html">Jumping Jack</a></h1>
+      <p>I'd like to present some solutions to the following puzzle that appeared as
+<a class="reference external" href="http://programmingpraxis.com/2013/03/22/jumping-jack/">March 22, 2013 Programming Praxis puzzle</a>.</p>
+<p>Jack starts at 0 on the number line and jumps one unit in either direction. Each successive jump he makes is longer than the previous by 1 unit, and can be made in either direction.
+Design an algorithm that takes an integer n and returns a shortest sequence of jumps that Jack can perform to reach n along with the length of that sequence.</p>
+<div class="section" id="algorithm-1">
+<h2>Algorithm 1</h2>
+<p>Brute-force.
+Perform a breadth-first search through the binary tree of all valid jump/integer summand sequences (0, -1, 1, -1 - 2, -1 + 2, 1 - 2, 1 + 2, ...) and stop when the target sum n is reached.</p>
+</div>
+<div class="section" id="algorithm-2">
+<h2>Algorithm 2</h2>
+<p>Brute-force with pruning.
+Label the nodes of the binary tree with their partial sums and order the nodes of so that the left child is less than the right child (0, -1, 1, -3, -1, -1, 3, ...).
+Notice that every pair of nodes at the same height with equal partial sums have equal subtrees.
+Notice also that every pair of nodes at the same height with partial sums of opposite sign have mirror image subtrees.
+Notice also that flipping the signs/turns of a path with partial sum s yields a path of the same length to -s.
+So in our breadth-first search, we don't need to search down a node at a given height if we've already discovered a node at the same height with the same magnitude partial sum.</p>
+<p>Analyzing the worst-case time complexity of Algorithm 1 or Algorithm 2 requires knowing at what tree height the given number n is first discovered.
+If you can figure that out, then you probably discovered...</p>
+</div>
+<div class="section" id="algorithm-3">
+<h2>Algorithm 3</h2>
+<p>Smart-force.
+Find the least integer k such that t_k := 1 + 2 + 3 + ... + k &gt;= |n| and t_k has the same parity (evenness/oddness) as |n|.
+Then flip the signs of the summands of t_k in a systematic way to total n.</p>
+<p>Here are the details.
+Notice that t_k = k(k + 1)/2, a triangular number.
+Setting t_k = |n| and solving for k gives the ceiling of (-1 + sqrt(1 + 8 |n|))/2.
+So k equals the ceiling or 1 or 2 plus it, whichever of those three numbers has the same parity as n and is least.
+Here we're using the fact that the set {t, t + s, t + s + (s + 1)} of three consecutive triangular numbers contains both even and odd numbers for any positive integers t, s.
+(Simply check all four parity possibilities for t, s.)</p>
+<p>To find a minimal length sum for n, first compute d := (t_k - n)/2.
+Because t_k &gt;= |n| and t_k and n have the same parity, d lies in the set {0, 1, 2, ..., t_k}.
+Now repeatedly subtract: d = a_k (k) + r_k, r_k = a_{k-1} (k-1) + r_{k-1}, ..., r_2 = a_1 (1) + r_1, choosing each a_i maximally in {0, 1}.
+By the lemma below,  r_1 = 0.
+So d = sum_{i=1}^k a_i i.
+Thus n = t_k - 2d = sum_{i=1}^k i - sum_{i=1}^k 2a_i i = sum_{i=1}^k (1 - 2a_i) i and 1 - 2a_i in {-1, 1}.
+So the sequence b_i := 1 - 2a_i is a path, and by the minimality of k, b_i is a minimal path.</p>
+</div>
+<div class="section" id="algorithm-3-example">
+<h2>Algorithm 3 example</h2>
+<p>Consider the target number n=12.
+According to Algorithm 3, the possibilities for k are 5, 6, 7.
+The corresponding values of t_k are 15, 21, and 28.
+Since 28 is the least of these with the same parity as n, we see that k=7.
+So d = (t_k - n)/2 = 8, which we write as 1 + 7 according to the algorithm.
+Thus a shortest path to 12 is -1 + 2 + 3 + 4 + 5 + 6 - 7.</p>
+<p>I say <em>a</em> shortest path, because shortest paths aren't unique in general.
+For example, 1 + 2 -3 + 4 - 5 + 6 + 7 also works.</p>
+</div>
+<div class="section" id="algorithm-3-correctness">
+<h2>Algorithm 3 correctness</h2>
+<p><em>Lemma</em>: Let A_k = {0, 1, 2, ..., t_k}.
+Then a number lies in A_k if and only if it can be expressed as a sum sum_{i=1}^k a_i i for some a_i in {0, 1}.</p>
+<p><em>Proof</em>: By induction on k.
+First, 0 = sum_{i=1}^0 1, the empty sum.
+Now suppose the result holds for all k - 1 &gt;= 0 and let d in A_k.
+Repeatedly subtract: d = a_k (k) + r_k, r_k = a_{k-1} (k-1) + r_{k-1}, ..., choosing each a_i maximally in {0, 1} and stopping at the first r_j in A_j for some j &lt; k.
+Then by the induction hypothesis, r_j = sum_{i=0}^j b_i i for some b_i in {0, 1}.
+Then d = r_j + sum_{i=j+1}^k a_k i, as desired.
+Conversely, a sum s := sum_{i=1}^k a_i i for a_i in {0, 1} satisfies 0 &lt;= s &lt;= sum_{i=1}^k i = t_k, and so s in A_k.</p>
+</div>
+<div class="section" id="algorithm-3-time-complexity">
+<h2>Algorithm 3 time complexity</h2>
+<p>Assuming that arithmetic operations are constant time, it takes O(1) time to compute k from n, and hence the length of a minimal path to n.
+Then it takes O(k) time to find a minimal length sum for d and O(k) time to use that sum to produce a minimal length sum for n.
+So O(k) = O(sqrt(n)) time all up.</p>
+</div>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-03-28<br>
+          Tags:
+            <a href="https://raichev.net/tag/algorithm.html">
+            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
+            puzzle</a><br />
+        <a href="https://raichev.net/jumping-jack.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/jumping-jack.html">Comment</a>
+      </div>
+    </div>
+
+  <br><br>
+  <p><b>Why no comments?</b>
+  I used to do public comments but found that moderating and maintaining them took too much time in front of the computer, time better spent playing outdoors.
+  So these days I only do private comments, that is, you can email me comments regarding a post by clicking the 'Comment' link at the bottom of the post.
+  </p>
+
+    </div>
+
+    <div class="clearfloat"></div>
+
+    <div id="footer">
+      <p>Powered by <a href="http://getpelican.com">Pelican</a>
+    </div>
+
+  <script src="/js/d3.v3.min.js"></script>
+  <script src="/js/graph.js"></script>
+  <script src="/js/jquery.v2.1.3.min.js"></script>
+  <script src="/js/video.js"></script>
+
+
+  <!-- Piwik -->
+  <script type="text/javascript">
+    var _paq = _paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//piwik.mrcagney.works/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

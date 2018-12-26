@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>    Alex Raichev > Blog > Blohg to Pelican
+</title>
+    <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
+<!-- Using MathJax, with the delimiters $ -->
+<!-- Conflict with pygments for the .mo and .mi -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+    styles: {
+    ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+    },
+    // tex2jax: {inlineMath: [['%','$'], ['\\(','\\)']],processEscapes: true}
+    tex2jax: {inlineMath: [['\\(','\\)']],processEscapes: true}
+    });
+    MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+    MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>    <meta charset="utf-8">
+
+<body>
+    <header>
+      <h1>Alex Raichev</h1>
+      <span id="graph"></span>
+    </header>
+
+    <nav>
+<ul>
+          <li><a href="/index.html"
+>Welcome</a></li>
+<li>&middot;<li>          <li><a href="/pages/works.html"
+>Works</a></li>
+<li>&middot;<li>          <li><a href="/blog.html"
+              class="active"
+>Blog</a></li>
+<li>&middot;<li>          <li><a href="/archives.html"
+>Blogindex</a></li>
+      </ul>
+    </nav>
+
+    <div id="mainContent">
+ 
+  <div class="blogItem">
+    <h1>Blohg to Pelican</h1>
+    <p>Over the past few days i moved this website's backend from <a class="reference external" href="http://blohg.org/">Blohg</a> to <a class="reference external" href="http://docs.getpelican.com/en/3.2/">Pelican</a>, both of which are <a class="reference external" href="https://en.wikipedia.org/wiki/Restructured_text">RST</a>-capable website generators.
+I did so, because i don't need the dynamic Flask-application capabilities of Blohg and because Pelican is more mature and equally simple to use.</p>
+<p>The transition was mostly smooth, but i did encounter a few issues that required me to search beyond Pelican's documentation to resolve.
+To save new Pelicaneers the effort, here are those issues and resolutions.</p>
+<p><strong>Issue 1</strong>: Custom paginated templates.</p>
+<p>I wanted a separate landing page and blog page, and the Pelican docs don't elaborate on this point.
+Querying the Pelican developers through the project's Github page, i received <a class="reference external" href="https://github.com/getpelican/pelican/issues/735#issuecomment-17674540">instructions from justinmayer</a>.
+First, he said, i needed to make a custom template to house my blog, which i called <tt class="docutils literal">blog.html</tt>.
+It contains the code</p>
+<div class="highlight"><pre><span></span>{% extends &quot;base.html&quot; %}
+{% set active_page = &quot;blog&quot; %}
+{% block title %}{{ SITENAME }} - Blog{% endblock %}
+{% block content %}
+{% for article in (articles_page.object_list if articles_page else articles) %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blogItem&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/{{ article.url }}&quot;</span><span class="p">&gt;</span>{{ article.title }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    {{ article.content }}
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blogMeta&quot;</span><span class="p">&gt;</span>
+    Author: <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;mailto: {{ AUTHOR_EMAIL }}&quot;</span><span class="p">&gt;</span>{{ article.author }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    Date: {{ article.locale_date }}<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    {% if article.tags %}
+        Tags:
+        {% for tag in article.tags %}
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/{{ tag.url }}&quot;</span><span class="p">&gt;</span>
+            {{ tag }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>{% if not loop.last %}, {% endif %}
+        {% endfor %}<span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+    {% endif %}
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/{{ article.url }}#disqus_thread&quot;</span><span class="p">&gt;</span>Comments<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> -
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/{{ article.url }}&quot;</span><span class="p">&gt;</span>Permalink<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="c">&lt;!-- end #blogItem --&gt;</span>
+{% endfor %}
+{% include &#39;pagination.html&#39; %}
+{% endblock content %}
+</pre></div>
+<p>By the way, here's the code for the pagination template <tt class="docutils literal">pagination.html</tt>:</p>
+<div class="highlight"><pre><span></span>{% if articles_page and articles_paginator.num_pages &gt; 1 %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pagination&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    {% if articles_page.has_previous() %}
+        {% set num = articles_page.previous_page_number() %}
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;prev&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span>
+<span class="s">            {{ SITEURL }}/{{ page_name }}{{ num if num &gt; 1 else &#39;&#39;}}.html&quot;</span>
+            <span class="p">&gt;</span><span class="ni">&amp;laquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    {% endif %}
+    {% for num in range( 1, 1 + articles_paginator.num_pages ) %}
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span>
+<span class="s">            {{ SITEURL }}/{{ page_name }}{{ num if num &gt; 1 else &#39;&#39; }}.html&quot;</span>
+            <span class="na">class</span><span class="o">=</span><span class="s">&quot;{{ &#39;active&#39; if num == articles_page.number else &#39;&#39; }}&quot;</span>
+            <span class="p">&gt;</span>{{ num }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    {% endfor %}
+    {% if articles_page.has_next() %}
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;next&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span>
+<span class="s">            {{ SITEURL }}/{{ page_name }}{{</span>
+<span class="s">               articles_page.next_page_number() }}.html&quot;</span>
+            <span class="p">&gt;</span><span class="ni">&amp;raquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    {% endif %}
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+<p>I got it from the <a class="reference external" href="https://github.com/getpelican/pelican-themes">tuxlit_tbs Pelican theme</a> and modified it to my liking.</p>
+<p>Second, i had to add the following lines to my <tt class="docutils literal">pelicanconf.py</tt>.</p>
+<div class="highlight"><pre><span></span><span class="n">DIRECT_TEMPLATES</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;blog&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="s1">&#39;archives&#39;</span><span class="p">))</span>
+<span class="n">PAGINATED_DIRECT_TEMPLATES</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;blog&#39;</span><span class="p">,))</span>
+</pre></div>
+<p><strong>Issue 2</strong>: Disqus comments.</p>
+<p>This is another topic the Pelican docs don't elaborate on.
+To embed Disqus comments in my blog pages, i read <a class="reference external" href="http://help.disqus.com/customer/portal/articles/472097">Disqus's help article on embedding comments</a> and <a class="reference external" href="http://help.disqus.com/customer/portal/articles/565624">Disqus's help article on adding comment counts</a> and did the following.</p>
+<p>First, i made the template <tt class="docutils literal">disqus_comments.html</tt> which contains the code</p>
+<div class="highlight"><pre><span></span>{% if DISQUS_SITENAME %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blogItem&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Comments<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;disqus_thread&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+        <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;{{ DISQUS_SITENAME }}&#39;</span><span class="p">;</span>
+        <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">dsq</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+            <span class="nx">dsq</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/javascript&#39;</span><span class="p">;</span>
+            <span class="nx">dsq</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="nx">dsq</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/embed.js&#39;</span><span class="p">;</span>
+            <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span>
+             <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dsq</span><span class="p">);</span>
+        <span class="p">})();</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">noscript</span><span class="p">&gt;</span>
+        Please enable JavaScript to view the
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://disqus.com/?ref_noscript={{ DISQUS_SITENAME }}&quot;</span><span class="p">&gt;</span>
+            comments powered by Disqus.
+        <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">noscript</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://disqus.com&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dsq-brlink&quot;</span><span class="p">&gt;</span>
+        blog comments powered by <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;logo-disqus&quot;</span><span class="p">&gt;</span>Disqus<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+<p>and in my <tt class="docutils literal">article.html</tt> template added the line <tt class="docutils literal">{% include 'disqus_comments.html' %}</tt> before the line <tt class="docutils literal">{% endblock %}</tt>.
+Doing so embeds Disqus comments for each blog post (article).</p>
+<p>Second, i made the template <tt class="docutils literal">disqus_comment_counts.html</tt> which contains the code</p>
+<div class="highlight"><pre><span></span>{% if DISQUS_SITENAME %}
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+        <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;{{ DISQUS_SITENAME }}&#39;</span><span class="p">;</span>
+        <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span> <span class="nx">s</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/javascript&#39;</span><span class="p">;</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/count.js&#39;</span><span class="p">;</span>
+            <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span>
+             <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;BODY&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+        <span class="p">}());</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+<p>and in my <tt class="docutils literal">base.html</tt> template added the line <tt class="docutils literal">{% include 'disqus_comment_counts.html' %}</tt> before the <tt class="docutils literal">&lt;/body&gt;</tt> tag.
+That enables blog post comment counts via the tags <tt class="docutils literal">&lt;a <span class="pre">href=&quot;{{</span> SITEURL <span class="pre">}}/{{</span> article.url <span class="pre">}}#disqus_thread&quot;&gt;Comments&lt;/a&gt;</span></tt>.</p>
+<p><strong>Issue 3</strong>: Typesetting math.</p>
+<p>I wanted to use <a class="reference external" href="http://www.mathjax.org/">MathJax</a> to typeset math on this site.
+Pelican has a <a class="reference external" href="https://github.com/getpelican/pelican-plugins">LaTeX plugin</a>, which uses MathJax, but doesn't work properly at present.
+It didn't typeset math in the list view of my blog posts, only in the detail view of each post.
+So i searched the web for an alternative and found <a class="reference external" href="https://www.ceremade.dauphine.fr/~amic/blog/mathjax-and-pelican-en.html">this helpful blog post</a> from another Pelican user.
+Following its instructions, i added this Javascript code into the <tt class="docutils literal">&lt;head&gt;</tt> section of my <tt class="docutils literal">base.html</tt> template:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- Using MathJax, with the delimiters $ --&gt;</span>
+<span class="c">&lt;!-- Conflict with pygments for the .mo and .mi --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/x-mathjax-config&quot;</span><span class="p">&gt;</span>
+    <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
+    <span class="s2">&quot;HTML-CSS&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">styles</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;.MathJax .mo, .MathJax .mi&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;black ! important&quot;</span><span class="p">}}</span>
+    <span class="p">},</span>
+    <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span><span class="nx">inlineMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;\\(&#39;</span><span class="p">,</span><span class="s1">&#39;\\)&#39;</span><span class="p">]],</span><span class="nx">processEscapes</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Register</span><span class="p">.</span><span class="nx">StartupHook</span><span class="p">(</span><span class="s2">&quot;HTML-CSS Jax Ready&quot;</span><span class="p">,</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">VARIANT</span> <span class="o">=</span> <span class="nx">MathJax</span><span class="p">.</span><span class="nx">OutputJax</span><span class="p">[</span><span class="s2">&quot;HTML-CSS&quot;</span><span class="p">].</span><span class="nx">FONTDATA</span><span class="p">.</span><span class="nx">VARIANT</span><span class="p">;</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;normal&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif&quot;</span><span class="p">);</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;bold&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif-bold&quot;</span><span class="p">);</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;italic&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif-italic&quot;</span><span class="p">);</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;-tex-mathit&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif-italic&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Register</span><span class="p">.</span><span class="nx">StartupHook</span><span class="p">(</span><span class="s2">&quot;SVG Jax Ready&quot;</span><span class="p">,</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">VARIANT</span> <span class="o">=</span> <span class="nx">MathJax</span><span class="p">.</span><span class="nx">OutputJax</span><span class="p">.</span><span class="nx">SVG</span><span class="p">.</span><span class="nx">FONTDATA</span><span class="p">.</span><span class="nx">VARIANT</span><span class="p">;</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;normal&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif&quot;</span><span class="p">);</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;bold&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif-bold&quot;</span><span class="p">);</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;italic&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif-italic&quot;</span><span class="p">);</span>
+    <span class="nx">VARIANT</span><span class="p">[</span><span class="s2">&quot;-tex-mathit&quot;</span><span class="p">].</span><span class="nx">fonts</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s2">&quot;MathJax_SansSerif-italic&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span>
+<span class="na">src</span><span class="o">=</span><span class="s">&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p>I removed the <tt class="docutils literal"><span class="pre">['$','$']</span></tt> item which allows dollar signs to delimit math text, as is standard in LaTeX documents, but it requires escaping every backslash in the math text with an additional backslash.
+For now i'll stick with the standard RST role <tt class="docutils literal">:math:</tt> for inline math and the standard RST directive <tt class="docutils literal">.. math::</tt> for block math display.
+The area of a circle is <span class="formula"><i>A</i><sub><span class="text">c</span></sub> = (<i>π</i> ⁄ 4)<i>d</i><sup>2</sup></span>, that is,</p>
+<div class="formula">
+<i>A</i><sub><span class="text">c</span></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>π</i></span><span class="ignored">)/(</span><span class="denominator">4</span><span class="ignored">)</span></span><i>d</i><sup>2</sup>.
+</div>
+	
+
+    <div class="blogMeta">        
+      Author: Alex Raichev<br />
+      Date: 2013-05-11<br />
+        Tags:
+          <span><a href="https://raichev.net/tag/instructions.html">
+          instructions</a>, </span>
+          <span><a href="https://raichev.net/tag/tech.html">
+          tech</a></span>
+<br />
+      <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/blohg-to-pelican.html">Comment</a>
+    </div>
+  </div>
+
+  <!--    <p>There are no comments yet.<p>
+-->
+    </div>
+
+    <div class="clearfloat"></div>
+
+    <div id="footer">
+      <p>Powered by <a href="http://getpelican.com">Pelican</a>
+    </div>
+
+  <script src="/js/d3.v3.min.js"></script>
+  <script src="/js/graph.js"></script>
+  <script src="/js/jquery.v2.1.3.min.js"></script>
+  <script src="/js/video.js"></script>
+
+
+  <!-- Piwik -->
+  <script type="text/javascript">
+    var _paq = _paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//piwik.mrcagney.works/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+o-------------------------o		
+| Handy Charts for Guitar |     
+o-------------------------o     
+								
+By Alex Raichev 
+(2004.08) initial version
+(2007.02.20) added more sections
+(2011.05.03) altered the formatting slightly
+
+
+Some Mostly Movable Chords 
+============================
+Formula (relative to the major scale), label (system described at end of document; here 'R', which stands for 'root', is a placeholder for any of A, A#, Bb,...,Ab), and the five bar forms.
+
+Formula       Label     C          A          G          E          D
+-------       -----     ------     ------     ------     ------     ------
+1 3 5         R         x32010     x02220     320003     022100     xx0232
+                         R35R3      R5R35     R35R3R     R5R35R       R5R3
+-------
+1 -3 5        Rm        x3101x     x02210     310033     022000     xx0231
+-------
+1 -3 -5       Ro        x31x12     x0121x     31x023     0120x0     xx0131
+-------
+1 3 +5        Ru        x32110     x03221     321003     032110     xx0332
+-------
+1 3 5 7       R7        x32000     x02120     320002     021100     xx0222
+-------
+1 3 5 -7      R-7       x32310     x02020     320001     020100     xx0212
+-------
+1 -3 5 -7     Rm-7      x3131x     x02010     310031     020000     xx0211
+-------
+1 -3 5 7      Rm7       x3100x     x02110     310032     021000     xx0221
+-------
+1 -3 -5 -7    Ro-7      x31312     x01013     313020     010030     xx0111
+-------
+1 -3 -5 6     Ro6       x31212     x01212     312020     012020     xx0101
+-------
+1 3 +5 7      Ru7       x32100     x03121     321002     031110     xx0322
+-------
+1 2 5         R:25      x30033     x02200     300033     024x00     xx0230
+-------
+1 4 5         R:45      x33011     x02230     330033     022200     xx0233
+-------
+1 3 5 6       R6        x32213     x02222     320000     022120     xx0202
+-------
+1 4 5 7       R:457     x33003     x02130     330012     021200     xx0223 
+-------
+1 4 5 -7      R:45-7    x33313     x02030     330011     020200     xx0213 
+
+
+Piano
+=====
+
+--------------------------------------------------------------------------------
+|    |#|   |#|    |    |#|   |#|   |#|    |    |#|   |#|    |    |#|   |#|   |#|
+|    |#|   |#|    |    |#|   |#|   |#|    |    |#|   |#|    |    |#|   |#|   |#|
+|    |#|   |#|    |    |#|   |#|   |#|    |    |#|   |#|    |    |#|   |#|   |#|
+|    |#|   |#|    |    |#|   |#|   |#|    |    |#|   |#|    |    |#|   |#|   |#|
+|    |#|   |#|    |    |#|   |#|   |#|    |    |#|   |#|    |    |#|   |#|   |#|
+|     |     |     |     |     |     |     |     |     |     |     |     |     | 
+|     |     |     |     |     |     |     |     |     |     |     |     |     | 
+|     |     |     |     |     |     |     |     |     |     |     |     |     | 
+|     |     |     |     |     |     |     |     |     |     |     |     |     | 
+--------------------------------------------------------------------------------
+
+
+Major Scale Quartads
+====================
+
+I7     IIm-7     IIIm-7    IV7     V-7      VIm-7     VIIo-7
+------------------------------------------------------------
+A7     Bm-7      C#m-7     D7      E-7      F#m-7     G#o-7
+A#7    Cm-7      Dm-7      D#7     F-7      Gm-7      Ao-7
+B7     C#m-7     D#m-7     E7      F#-7     G#m-7     A#o-7
+C7     Dm-7      Em-7      F7      G-7      Am-7      Bo-7
+C#7    D#m-7     Fm-7      F#7     G#-7     A#m-7     Co-7
+D7     Em-7      F#m-7     G7      A-7      Bm-7      C#o-7
+D#7    Fm-7      Gm-7      G#7     A#-7     Cm-7      Do-7
+E7     F#m-7     G#m-7     A7      B-7      C#m-7     D#o-7
+F7     Gm-7      Am-7      A#7     C-7      Dm-7      Eo-7
+F#7    G#m-7     A#m-7     B7      C#-7     D#m-7     Fo-7
+G7     Am-7      Bm-7      C7      D-7      Em-7      F#o-7
+G#7    A#m-7     Cm-7      C#7     D#-7     Fm-7      Go-7
+
+
+Harmonic Minor Scale Quartads
+=============================
+
+Im7      IIo-7     IIIu7    IVm-7     V-7      VI7     VIIo6
+------------------------------------------------------------
+Am7      Bo-7      Cu7      Dm-7      E-7      F7      G#o6
+A#m7     Co-7      C#u7     D#m-7     F-7      F#7     Ao6
+Bm7      C#o-7     Du7      Em-7      F#-7     G7      A#o6
+Cm7      Do-7      D#u7     Fm-7      G-7      G#7     Bo6
+C#m7     D#o-7     Eu7      F#m-7     G#-7     A7      Co6
+Dm7      Eo-7      Fu7      Gm-7      A-7      A#7     C#o6
+D#m7     Fo-7      F#u7     G#m-7     A#-7     B7      Do6
+Em7      F#o-7     Gu7      Am-7      B-7      C7      D#o6
+Fm7      Go-7      G#u7     A#m-7     C-7      C#7     Eo6
+F#m7     G#o-7     Au7      Bm-7      C#-7     D7      Fo6
+Gm7      Ao-7      A#u7     Cm-7      D-7      D#7     F#o6
+G#m7     A#o-7     Bu7      C#m-7     D#-7     E7      Go6
+
+
+The Cycle of Fifths 
+===================
+Picking a root note on the circle and moving clockwise one step
+leads you to the fifth note in the major scale of that root.
+For example, the fifth note of the A major scale is E.
+Picking a root note on the circle and moving counterclockwise one step
+leads you to the fourth note in the major scale of that root.
+For example, the fourth note of the A major scale is D.
+
+                C       
+          F           G
+          
+      A#                  D
+
+     D#                    A
+
+      G#                  E
+     
+           C#         B
+                F#    
+
+
+Major Scale Scale Forms
+=======================
+The numbers indicate fingering, and the layout emphasizes the overlaps of the 
+forms along the fretboard.
+
+C form
+
+1 1 1 1 1 1
+-----------
+2       2 2    A form 
+-----------  
+  3 3 3          1 1 1
+-----------    -----------
+4 4 4   4 4    2 2 2   1 1    G form
+               -----------
+                     3              1
+               -----------    -----------
+               4 4 4 4 3 3    1 1 1 2 1 1     
+               -----------    -----------
+                       4              2      E form
+                              -----------
+                              3 3 3 4   3    1 1 1 1   1    D form
+                              -----------    -----------
+                              4 4     4 4    2 2     2 2    1 1 
+                                             -----------    -----------
+                                                 3 3            1 1 
+                                             -----------    -----------
+                                             4 4 4 4 4 4    2 2 2 2 1 1
+                                                            -----------
+
+                                                            -----------
+                                                            4 4 4 4 3 3
+                                                            -----------
+                                                                    4 4
+
+
+Diminished Chord Adornment
+==========================
+V#o6 can substitute for V-7, the dominant. 
+Since diminished quartads are symmetric, there are only three up to voicing:
+
+     Ao6  = Co6  = D#o6 = F#o6
+     A#o6 = C#o6 = Eo6  = Go6
+     Bo6  = Do6  = Fo6  = G#o6.
+  
+Considering these equivalences, Ao6, for instance, can be substituted
+(as itself, Co6, D#o6, or F#o6) for any of G#-7, B-7, D-7, or F-7.
+
+
+My System for Chord Labels
+==========================
+MOTIVATION
+	The logician in me is a bit annoyed at the inconsistency of standard chord
+	labels. For example, C6 denotes C major with added sixth, whereas C7 
+	denotes C major with added FLATTENED seventh. To remedy the situation i 
+	propose the following alternative system for chord labels based on the major 
+	scale. In this system the chords just mentioned are denoted C6 and C-7, 
+	respectively. 
+
+SYNTAX
+    rootnote : note1 note2 ... noteN
+
+  	where 'rootnote' is one of           A, A#, Bb,..., Ab,
+  	and 'notei' (1<=i<=N) is one of      -2,...,-7, 2,...,7, +1,...,+6
+  	subject to the constraint that      note1 < note2 <...< noteN.
+
+OPTIONS
+    /rootnote (at the end)
+
+  	indicates a replaced root (bottom) note; a 'slash' chord.
+
+SEMANTICS VIA EXAMPLES
+  	C:3+5-7 denotes (any voicing of) the chord with notes C E G# Bb. The signed
+  	numbers indicate which notes in the C major scale to add to C, namely, 
+  	the third (E), the sharpened fifth (G#), and the flattened seventh (Bb).
+  	Again, these numbers are to be interpreted in the context of the MAJOR SCALE 
+  	of the rootnote. A standard exists for when to call a G# an Ab and vice 
+  	versa, but for simplicity (and since i don't know the standard) i ignore it 		
+	here. Examples. 
+  	
+    Bb:-3-56  = Bb diminished 7th
+    G:3+5     = G augmented
+    F#:45-7   = F# dominant 7th sustained 4th
+    A:3-5/G   = A flattened 5th with a G instead of A root
+    D:426     = an invalid expression (numbers not increasing)
+
+ABBREVIATIONS 
+	  R         abbreviates R:35    (major triad)
+    Rm        abbreviates R:-35   (minor triad)
+    Ro        abbreviates R:-3-5  (diminished triad)
+    Ru        abbreviates R:3+5   (augmented triad)
+     
+  	where R is one of     A, A#, Bb,...,Ab
+
+EXAMPLES
+	C7        = C major 7th
+	Am-7      = A minor dominant 7th
+	F#m7      = F# minor major seventh
+	G#27      = G# major 7th added 9th
+	Bo6       = B diminished 7th
+	Fm/E      = F minor with an E instead of F root
+	Eb37      = an invalid expression (repeated 3)

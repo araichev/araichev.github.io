@@ -1,0 +1,34 @@
+o--------------------------------------o
+| "The Fool"                           |
+| from In the Aeroplane Over the Sea   |
+| by NEUTRAL MILK HOTEL                |
+o--------------------------------------o
+
+Dm   xx0231         C/A  302010
+Am   x02210         F    133211
+D+B  xx0435         G    355433
+C    332010
+
+----------------------------------------
+
+Each chord and hyphenated string of chords below takes up one measure of 3/4.
+
+Dm   Am   Dm   Am   Dm   Am        | 
+                                   |
+Dm   D+B  C    C    C/A  Am        |> pattern 1
+                                   |
+Dm   Am   Dm                       |
+
+rest one measure
+
+pattern 1 
+
+F--G--F     C/A  C    C            |
+                                   |> pattern 2
+C--C/A--G   F    F    F            |
+
+pattern 2 
+
+rest one measure
+
+pattern 1
