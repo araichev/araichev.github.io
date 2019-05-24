@@ -171,6 +171,8 @@ var quotes = [["Leo: (July 23-August 22) You'll disprove an old adage this week 
 ["So what's causing the current epidemic of anxiety and depression? Maybe it's like the decline of Rome, so complex that even historians will argue about it. My too-simple answer is this: society is best viewed as a game, and ours is not designed to be fun for actual humans, only for large concentrations of money.", "Ran Prieur, blog entry 2018-07-07"], 
 ["You are not controlling the storm, and you are not lost in it. You *are* the storm.", "Sam Harris, *Free Will*, 2012"], 
 ["I could not become anything; neither good nor bad; neither a scoundrel nor an honest man; neither a hero nor an insect. And now I am eking out my days in my corner, taunting myself with the bitter and entirely useless consolation that an intelligent man cannot seriously become anything, that only a fool can become something.", "Fyodor Dostoevsky, *Notes from Underground*, 1864"], 
+["I have been and still am a seeker, but I have ceased to question stars and books. I have begun to listen to the teachings my blood whispers to me. My story is not a pleasant one; it is neither sweet nor harmonious, as invented stories are; it has the taste of nonsense and chaos, of madness and dreams&mdash;like the lives of all men who stop deceiving themselves.", "from *Demian* by Hermann Hesse, 1919"], 
+["Years ago I gave up all aesthetic ambition. I don't write literature now but simply confessions, just as a drowning man or a man dying of poisoning no longer worries about the state of his hair or the modulation of his voice, but instead simply lets out a scream.", "Hermann Hesse, in a letter to the critic Heinrich Wiegand, 1926"], 
 ];
 
 var d = document; // used to save typing
