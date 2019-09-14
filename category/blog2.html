@@ -62,6 +62,102 @@
 
     <div id="mainContent">
     <div class="blogItem">
+      <h1><a href="https://raichev.net/deploying-a-flask-application-on-webfaction.html">Deploying a Flask Application on Webfaction</a></h1>
+      <p>A few months ago i had to deploy for the first time a Flask application on a Webfaction server.
+After studying <a class="reference external" href="https://community.webfaction.com/questions/12718/installing-flask?page=1&amp;focusedAnswerId=12719#12719">this Webfaciton Community thread</a> on the topic, issuing a Webfaction support ticket for help ---Webfaction customer service is excellent--- and trying and failing several times, i figured it out.
+Here's what i did.</p>
+<p>Suppose that your Flask project structure looks like this:</p>
+<pre class="literal-block">
+APPNAME
+├── APPNAME
+│&nbsp;&nbsp; ├── main.py
+│&nbsp;&nbsp; ...
+│&nbsp;&nbsp; └── wsgi.py
+...
+├── Pipfile
+├── Pipfile.lock
+└── README.rst
+</pre>
+<p>that you are tracking it with Git, that you run it locally in a Python virtual environment, e.g. using Pipenv, and that it works.
+Now, let's deploy it to Webfaction.</p>
+<ol class="arabic">
+<li><p class="first">Log in to your Webfaction control panel and create a new mod_wsgi/Python application. Also create a corresponding domain and website for the app. I assume you know how to do that.</p>
+</li>
+<li><p class="first">Throughout the remainder of these notes, suppose that your Webfaction username is USERNAME and that your Flask application is called APPNAME</p>
+</li>
+<li><p class="first">SSH into your Webfaction server and run these commands:</p>
+<pre class="literal-block">
+&gt; mkdir home/USERNAME/webapps/APPNAME/APPNAME
+&gt; rm -r home/USERNAME/webapps/APPNAME/htdocs
+&gt; rm -r home/USERNAME/webapps/APPNAME/lib
+</pre>
+<p>You don't need the <tt class="docutils literal">lib</tt> directory in the last line, because you will be using a virtual environment.</p>
+</li>
+<li><p class="first">Set up Git, Git hooks, and push your local repository to Webfaction. See the Webfaction instructions <a class="reference external" href="https://docs.webfaction.com/software/git.html">here</a> and <a class="reference external" href="https://community.webfaction.com/questions/1246/using-git-with-applications">here</a>.</p>
+</li>
+<li><p class="first">Create your virtual environment ---let's call it VENVNAME here--- and install your app requirements. I think the easiest way to do this is to install Pip to install Pipenv to manage your virtual environments and packages.</p>
+</li>
+<li><p class="first">If your local repo has a <tt class="docutils literal">.env</tt> environment file containing (Git-ignored) secrets, then create a corresponding <tt class="docutils literal">.env</tt> file in your Webfaction repo.</p>
+</li>
+<li><p class="first">If you haven't done so already, create the file <tt class="docutils literal">home/USERNAME/webapps/APPNAME/APPNAME/wsgi.py</tt> containing the single line <tt class="docutils literal">from main import server as application</tt>.</p>
+<p>This assumes that your Flask code lies in the module <tt class="docutils literal">main.py</tt> and that the Flask app you create in that module is call <tt class="docutils literal">server</tt>.
+If that's not the case, then change the above snippet as needed.</p>
+</li>
+<li><p class="first">Edit the file <tt class="docutils literal">home/USERNAME/webapps/APPNAME/apache2/conf/httpd.conf</tt> to the following, where PORT is the port number that Webfaction assigned to your application (which you can view in your Webfaction control panel for the app):</p>
+<pre class="literal-block">
+ServerRoot &quot;/home/USERNAME/webapps/APPNAME/apache2&quot;
+
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule dir_module        modules/mod_dir.so
+LoadModule env_module        modules/mod_env.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule mime_module       modules/mod_mime.so
+LoadModule rewrite_module    modules/mod_rewrite.so
+LoadModule setenvif_module   modules/mod_setenvif.so
+LoadModule wsgi_module       modules/mod_wsgi.so
+LoadModule unixd_module      modules/mod_unixd.so
+
+LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; combined
+CustomLog /home/USERNAME/logs/user/access_APPNAME.log combined
+ErrorLog /home/USERNAME/logs/user/error_APPNAME.log
+
+Listen PORT
+KeepAlive Off
+SetEnvIf X-Forwarded-SSL on HTTPS=1
+ServerLimit 1
+StartServers 1
+MaxRequestWorkers 5
+MinSpareThreads 1
+MaxSpareThreads 3
+ThreadsPerChild 5
+
+WSGIPythonHome /home/USERNAME/.virtualenvs/VENVNAME
+WSGIDaemonProcess APPNAME processes=2 threads=12 python-path=/home/USERNAME/webapps/APPNAME/APPNAME:/home/USERNAME/webapps/APPNAME/APPNAME/APPNAME
+WSGIScriptAlias / /home/USERNAME/webapps/APPNAME/APPNAME/APPNAME/wsgi.py
+WSGIProcessGroup APPNAME
+WSGIRestrictEmbedded On
+WSGILazyInitialization On
+</pre>
+</li>
+<li><p class="first">Restart your app via <tt class="docutils literal">home/USERNAME/webapps/APPNAME/apache2/bin/restart</tt>.</p>
+</li>
+</ol>
+<p>These instructions will probably go obsolete in a few months, as all things web related do.
+Still, they'll help me while they last and maybe help you too.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2018-05-17<br>
+          Tags:
+            <a href="https://raichev.net/tag/instructions.html">
+            instructions</a>,             <a href="https://raichev.net/tag/tech.html">
+            tech</a><br />
+        <a href="https://raichev.net/deploying-a-flask-application-on-webfaction.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/deploying-a-flask-application-on-webfaction.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
       <h1><a href="https://raichev.net/kutere.html">Kūtere</a></h1>
       <img alt="youtube~O2KR8PXZ2Zo" class="video" src="''" />
 <p>Kūtere - (Māori, verb) to flow together, rush into one place.
@@ -362,53 +458,6 @@ Nothing hospital-serious, but i did sustain three <a class="reference external" 
             tech</a><br />
         <a href="https://raichev.net/quick-and-easy-fruit-picker.html">Permalink</a>,
         <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/quick-and-easy-fruit-picker.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/how-to-eat-better.html">How to Eat Better</a></h1>
-      <p>I think Ran Prieur sums it up well in the following points, which he elaborates on his webpage <a class="reference external" href="http://ranprieur.com/misc/eat.html">here</a>.</p>
-<ul class="simple">
-<li>What your ancestors ate is good for you</li>
-<li>Refined carbohydrates are bad for you</li>
-<li>Refined sugar is especially bad for you</li>
-<li>Trans fats are bad for you</li>
-<li>Saturated fats are good for you</li>
-<li>Common cooking oils are moderately bad, including canola, corn, soy, and safflower</li>
-<li>Soy is bad for you unless it's fermented</li>
-<li>Wheat is usually bad for you, but it doesn't have to be</li>
-<li>Some natural foods are bad for you</li>
-<li>Fresh is good</li>
-<li>Milk should be low tech</li>
-<li>Salt should be unrefined</li>
-<li>City water additives are bad</li>
-<li>Look at ingredients lists</li>
-<li>Think beyond organic</li>
-<li>Make food a higher financial priority</li>
-<li>Expand your concept of food</li>
-<li>Listen to your body, not your mouth</li>
-<li>Quit drinking soda</li>
-<li>Quit fast food and junk food</li>
-<li>Buy organic, selectively</li>
-<li>Buy local</li>
-<li>Practice recipe cooking</li>
-<li>Practice improvisational cooking</li>
-<li>Keep a sourdough culture</li>
-<li>Sprout!</li>
-<li>Grow a garden</li>
-<li>Plant fruit trees, and nut trees and berry bushes and perennial herbs</li>
-<li>Raise animals</li>
-<li>Hunt and forage</li>
-</ul>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2017-02-06<br>
-          Tags:
-            <a href="https://raichev.net/tag/advice.html">
-            advice</a><br />
-        <a href="https://raichev.net/how-to-eat-better.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/how-to-eat-better.html">Comment</a>
       </div>
     </div>
     <div class="pagination">
