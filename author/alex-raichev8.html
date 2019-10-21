@@ -64,6 +64,22 @@
 
 <ol id="post-list">
         <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/what-is-this.html" rel="bookmark" title="Permalink to What is This?">What is This?</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2013-10-20T00:00:00+13:00"> 2013-10-20 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Can you guess what this Chinese-made product is, given the following product description printed on its box?  Not to give it away too easily, i've replaced one word with +++.</p>
+<ol class="arabic simple">
+<li>This product is a new science and technology product and made with high and new science and technology.  It can illuminate only placing it in rhythm.</li>
+<li>No need any power.  No environmental pollution.  Low noise and health.  Comparing with common +++ it can be several times on lift.</li>
+<li>Constantly using this health +++, it can benefit to your palm, arm and shoulder stretching and blood circulation, so as to let your hands relax and brain clever, hand and brain coordinate and promote your brain memory and health composition.</li>
+</ol>
+ </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
                 <header> <h2 class="entry-title"><a href="https://raichev.net/experience-vs-memory.html" rel="bookmark" title="Permalink to Experience vs Memory">Experience vs Memory</a></h2> </header>
                 <footer class="post-info">
                     <time class="published" datetime="2013-08-24T00:00:00+12:00"> 2013-08-24 </time>
@@ -431,43 +447,6 @@ O(n lg n) time and O(n) space.</p>
             <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="k">return</span> <span class="s2">&quot;Sorry, no pair of item costs sum to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">credit</span>
 </pre></div>
-</div>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/cat-vs-dog.html" rel="bookmark" title="Permalink to Cat Vs. Dog">Cat Vs. Dog</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2013-04-02T00:00:00+13:00"> 2013-04-02 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>Updated for clarity 23 Sep 2013.</p>
-<p>A friend of mine recently pointed me to Spotify's <a class="reference external" href="https://www.spotify.com/us/jobs/tech/catvsdog/">Cat vs. Dog puzzle</a>.
-The question is long, and so i'll summarize it without its motivating context.</p>
-<p>You are given n votes, each of which is a pair of strings of the form <span class="formula">(<i>Ci</i>, <i>Dj</i>)</span> (a cat-lover vote) or <span class="formula">(<i>Dj</i>, <i>Ci</i>)</span> (a dog-lover) for some integers <span class="formula">1 ≤ <i>i</i>, <i>j</i> ≤ <i>n</i></span>.
-This collection of votes can contain repeats.
-Two votes <span class="formula">(<i>a</i>, <i>b</i>)</span> and <span class="formula">(<i>c</i>, <i>d</i>)</span> are said to conflict if <span class="formula"><i>a</i> = <i>d</i></span> or <span class="formula"><i>b</i> = <i>c</i></span>.
-So a conflict can only occur between a cat-lover vote and a dog-lover vote.
-Your job is to find the size of a maximal subcollection of the votes in which no two votes conflict.</p>
-<div class="section" id="algorithm-1">
-<h2>Algorithm 1</h2>
-<p>Brute-force.
-Run through all possible subcollections of votes and test each for conflicts.
-Choose the biggest non-conflicting subcollection.</p>
-<p>This procedure would take <span class="formula"><i>O</i>(2<sup><i>n</i></sup>)</span> time in the worst case, because there are <span class="formula">2<sup><i>n</i></sup></span> subcollections to check.
-That's very slow.
-Can we be more clever?</p>
-</div>
-<div class="section" id="algorithm-2">
-<h2>Algorithm 2</h2>
-<p>Yes, model the problem with a graph.</p>
-<ol class="arabic simple">
-<li>Distinguish the votes by tagging each with a unique identifier, such as an integer between <span class="formula">1</span> and <span class="formula"><i>n</i></span>.  This takes <span class="formula"><i>O</i>(<i>n</i>)</span> time.</li>
-<li>Build the following undirected graph <span class="formula"><i>G</i></span>. Make each vote a vertex, and add the edge <span class="formula">{<i>u</i>, <i>v</i>}</span> if <span class="formula"><i>u</i></span> and <span class="formula"><i>v</i></span> are conflicting votes. This takes <span class="formula"><i>O</i>(<i>n</i><sup>2</sup>)</span> time.  Notice that <span class="formula"><i>G</i></span> is bipartite, because every edge connects a cat-lover vote to a dog-lover vote and no vertex is both a cat-lover vote and a dog-lover vote.</li>
-<li>Notice that every maximal subset of nonconflicting votes is the complement of a minimum vertex cover for <span class="formula"><i>G</i></span>.  So find the size <span class="formula"><i>k</i></span> of a minimum vertex cover for <span class="formula"><i>G</i></span> and return <span class="formula"><i>n</i> − <i>k</i></span>.  Now, <a class="reference external" href="https://en.wikipedia.org/wiki/Minimum_vertex_cover">finding the size of a minimum vertex cover in an arbitrary undirected graph is an NP-complete problem</a>, and there's no known sub-exponential time way to do that.  However, our graph is bipartite, and so by <a class="reference external" href="http://en.wikipedia.org/wiki/K%C3%B6nig%27s_theorem_%28graph_theory%29">Koenig's theorem</a>, the size of a minimum vertex cover of <span class="formula"><i>G</i></span> equals the size of a maximum matching for <span class="formula"><i>G</i></span>, the latter of which can be found by the <a class="reference external" href="https://en.wikipedia.org/wiki/Hopcroft%E2%80%93Karp_algorithm">Hopcroft-Karp algorithm</a> in <span class="formula"><i>O</i>(|<i>E</i>|<span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>n</i></span><span class="ignored">)</span></span>)</span> time, where <span class="formula">|<i>E</i>|</span> is the number of edges in <span class="formula"><i>G</i></span>.  In the worst case, <span class="formula">|<i>E</i>| = <i>n</i><sup>2</sup></span> and running Hopcroft-Karp takes <span class="formula"><i>O</i>(<i>n</i><sup>2.5</sup>)</span> time.</li>
-</ol>
-<p>So all up, Algorithm 2 takes <span class="formula"><i>O</i>(<i>n</i><sup>2.5</sup>)</span> time in the worst case.</p>
 </div>
  </div><!-- /.entry-content -->
         </article></li>
