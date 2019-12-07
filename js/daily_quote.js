@@ -61,7 +61,7 @@ var quotes = [["Leo: (July 23-August 22) You'll disprove an old adage this week 
 ["All good books are alike in that they are truer than if they had really happened and after you are finished reading one you will feel that all that happened to you and afterwards it all belongs to you; the good and the bad, the ecstasy, the remorse and sorrow, the people and the places and how the weather was.", "Ernest Hemingway"], 
 ["I am become death, the destroyer of worlds.", "J. Robert Oppenheimer on the explosion of the first atomic bomb in New Mexico 16 July 1945"], 
 ["More than any other time in history, mankind faces a crossroads. One path leads to despair and utter hopelessness. The other, to total extinction. Let us pray we have the wisdom to choose correctly.", "Woody Allen"], 
-["If you want to find the meaning, stop chasing so many things.", "Ryokan"], 
+["My hut lies in the middle of a dense forest; / Every year the green ivy grows longer. / No news of the affairs of men, / Only the occasional song of a woodcutter. / The sun shines and I mend my robe; / When the moon comes out I read Buddhist poems. / I have nothing to report, my friends. / If you want to find the meaning, stop chasing after so many things.", "Ryokan (1758–1831), translated by John Stevens"], 
 ["Always looking away to the future.  Never your mind on where you are, hm?, on what you are doing?", "Yoda J.M."], 
 ["Such is the nature of men, that howsoever they may acknowledge many others to be more witty, or more eloquent, or more learned; yet they will hardly believe there be many so wise as themselves.", "Thomas Hobbes"], 
 ["What is to give light must endure burning.", "Viktor Frankl"], 
