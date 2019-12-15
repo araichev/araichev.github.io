@@ -61,6 +61,24 @@
 
     <div id="mainContent">
     <div class="blogItem">
+      <h1><a href="https://raichev.net/transitfeed-patch.html">Transitfeed Patch</a></h1>
+      <p>For the <a class="reference external" href="http://gtfsexplorer.net">GTFS Explorer</a> project i've been working on, i needed to convert GTFS feeds to <a class="reference external" href="https://en.wikipedia.org/wiki/Kml">KML</a>.
+Google's <a class="reference external" href="https://code.google.com/p/googletransitdatafeed/downloads/detail?name=transitfeed-1.2.12.tar.gz&amp;can=2&amp;q=">transitfeed package</a> is designed to do this, but the latest version (1.2.12) has a bug in it which prevents the KML writer from being imported.</p>
+<p>Searching the web on the issue, i found Dylan Vassallo's Github repo <a class="reference external" href="https://github.com/dylanvee/pybcp47">pybcp47</a>, which helped me create this patch to squash the bug: <a class="reference external" href="https://raichev.net/files/transitfeed-1.2.13_unofficial.tar.gz">transitfeed-1.2.13_unofficial.tar.gz</a>.</p>
+<p>To test the KML output online, i used <a class="reference external" href="http://display-kml.appspot.com/">this site</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-10-20<br>
+          Tags:
+            <a href="https://raichev.net/tag/software.html">
+            software</a><br />
+        <a href="https://raichev.net/transitfeed-patch.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/transitfeed-patch.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
       <h1><a href="https://raichev.net/what-is-this.html">What is This?</a></h1>
       <p>Can you guess what this Chinese-made product is, given the following product description printed on its box?  Not to give it away too easily, i've replaced one word with +++.</p>
 <ol class="arabic simple">
@@ -445,58 +463,6 @@ C = cup, T = tablespoon, t = teaspoon.</p>
             recipe</a><br />
         <a href="https://raichev.net/delicious-dal.html">Permalink</a>,
         <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/delicious-dal.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/store-credit.html">Store Credit</a></h1>
-      <p>Here's the store credit problem from <a class="reference external" href="http://code.google.com/codejam/contest/dashboard?c=351101#s=p0">Google Code Jam Qualification Round Africa 2010</a>, which i discovered via <a class="reference external" href="http://programmingpraxis.com">Programming Praxis</a>:</p>
-<p>You receive a credit C at a local store and would like to buy two items. You first walk through the store and create a list L of all available items. From this list you would like to buy two items that add up to the entire value of the credit. The solution you provide will consist of the two integers indicating the positions of the items in your list (smaller number first). For instance, with C=100 and L={5,75,25} the solution is 2,3; with C=200 and L={150,24,79,50,88,345,3} the solution is 1,4; and with C=8 and L={2,1,9,4,4,56,90,3} the solution is 4,5.</p>
-<div class="section" id="algorithm-1">
-<h2>Algorithm 1</h2>
-<p>Brute force. Test all pairs in the list. O(n^2) time and O(n) space.</p>
-</div>
-<div class="section" id="algorithm-2">
-<h2>Algorithm 2</h2>
-<p>Sort the list and then iterate over the list, at each step looking for the complementary price of the current price via binary search.
-O(n lg n) time and O(n) space.</p>
-</div>
-<div class="section" id="algorithm-3">
-<h2>Algorithm 3</h2>
-<p>Store the prices and indices in a dictionary and then iterate over the dictionary, at each step looking for the complementary price. Since dictionary look-up is constant time on average, this is an O(n) time (in the average case) and O(n) space algorithm.  Hooray!</p>
-<p>Here's a Python 2.7 implementation:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_pair</span><span class="p">(</span><span class="n">credit</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
-    <span class="c1"># Make a dictionary with items of the form</span>
-    <span class="c1"># (price, set of indices of items with that price).</span>
-    <span class="c1"># Note that the price list could contain duplicate prices.</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># + 1 to index from 1 instead of 0.</span>
-    <span class="k">for</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">price</span> <span class="o">&lt;=</span> <span class="n">credit</span><span class="p">:</span>
-            <span class="c1"># Remove price index from d.</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="c1"># Check whether there&#39;s a complementary price in d.</span>
-            <span class="k">if</span> <span class="n">credit</span> <span class="o">-</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="c1"># This works even if price == credit - price.</span>
-                <span class="n">j</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">credit</span> <span class="o">-</span> <span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
-            <span class="c1"># Reinsert price index into d.</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;Sorry, no pair of item costs sum to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">credit</span>
-</pre></div>
-</div>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-04-11<br>
-          Tags:
-            <a href="https://raichev.net/tag/algorithm.html">
-            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
-            puzzle</a><br />
-        <a href="https://raichev.net/store-credit.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/store-credit.html">Comment</a>
       </div>
     </div>
     <div class="pagination">

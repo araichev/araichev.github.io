@@ -62,6 +62,25 @@
 
     <div id="mainContent">
     <div class="blogItem">
+      <h1><a href="https://raichev.net/wintergatan-marble-machine.html">Wintergatan Marble Machine</a></h1>
+      <img alt="youtube~IvUU8joBb1Q" class="video" src="''" />
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=IvUU8joBb1Q">here</a>.</p>
+<img alt="youtube~uog48viZUbM" class="video" src="''" />
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=uog48viZUbM">here-o</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2016-04-01<br>
+          Tags:
+            <a href="https://raichev.net/tag/video.html">
+            video</a>,             <a href="https://raichev.net/tag/music.html">
+            music</a><br />
+        <a href="https://raichev.net/wintergatan-marble-machine.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/wintergatan-marble-machine.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
       <h1><a href="https://raichev.net/electrified.html">Electrified</a></h1>
       <img alt="youtube~T4Z-oyCGEl4" class="video" src="''" />
 <p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=T4Z-oyCGEl4">here</a>.</p>
@@ -228,50 +247,6 @@ All the talks are available on <a class="reference external" href="http://ifg.or
             collapse</a><br />
         <a href="https://raichev.net/the-party-is-over.html">Permalink</a>,
         <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/the-party-is-over.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/seven-brothers.html">Seven Brothers</a></h1>
-      <p>Following up on
-<a class="reference external" href="https://github.com/araichev/contours">Contours, A Mathematical Coloring Book</a>,
-here's another contour plot for coloring:</p>
-<img alt="" class="photo" src="https://raichev.net/files/seven_brothers.png" />
-<p>The PDF version is <a class="reference external" href="https://raichev.net/files/seven_brothers.pdf">here</a>.
-The copyright is
-<a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a>.</p>
-<p>Like the other contour plots in the book, this plot was created using <a class="reference external" href="http://www.sagemath.org">Sage</a>.
-Here's the Sage notebook code, in case you want to play with the plot.</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">)</span>
-<span class="n">f</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="o">^</span><span class="mi">7</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">fast_callable</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">CDF</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">ff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">real</span><span class="p">(),</span> <span class="n">f</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">imag</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">g</span>
-
-<span class="n">G</span> <span class="o">=</span> <span class="n">Graphics</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
-    <span class="n">G</span> <span class="o">+=</span> <span class="n">contour_plot</span><span class="p">(</span><span class="n">iterate</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span>
-      <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">G</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2015-01-03<br>
-          Tags:
-            <a href="https://raichev.net/tag/math.html">
-            math</a>,             <a href="https://raichev.net/tag/art.html">
-            art</a><br />
-        <a href="https://raichev.net/seven-brothers.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/seven-brothers.html">Comment</a>
       </div>
     </div>
     <div class="pagination">
