@@ -177,7 +177,7 @@ var quotes = [["Leo: (July 23-August 22) You'll disprove an old adage this week 
 ["Everybody has a plan until they get punched in the mouth.", "Mike Tyson"], 
 ["I have a sense that the world we see is the surface of some deeper world that we cannot see where there is something important happening. I guess it's just a mental gear shift to take this whole thing that you see as the real world and make it small and ask what is around it that you don't know about.", "Ran Prieur"], 
 ["The unspeakable is the true domain of being. And then within that, there is a very small subset of those things which can actually be captured in language. Mostly it's all mystery.", "Terence McKenna (1946–2000)"], 
-["It's clearly a crisis of two things: of consciousness and conditioning. These are the two things that the psychedelics attack. We have the technological power, the engineering skills to save our planet, to cure disease, to feed the hungry, to end war; But we lack the intellectual vision, the ability to change our minds. We must decondition ourselves from 10,000 years of bad behavior. And, it's not easy.", "Terence McKenna (1946–2000), "This World...and Its Double""], 
+["It's clearly a crisis of two things: of consciousness and conditioning. These are the two things that the psychedelics attack. We have the technological power, the engineering skills to save our planet, to cure disease, to feed the hungry, to end war; But we lack the intellectual vision, the ability to change our minds. We must decondition ourselves from 10,000 years of bad behavior. And, it's not easy.", "Terence McKenna (1946–2000), 'This World... and Its Double'"], 
 ];
 
 var d = document; // used to save typing
