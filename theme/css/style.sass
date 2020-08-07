@@ -3,12 +3,12 @@ $main-color: black
 $border-radius: 1px
 $border-color: #eee
 $gray-background: #eee
-
 body
+    -webkit-text-size-adjust: 100%
+    font: 20px/1.4em medium-content-sans-serif-font, Helvetica, sans-serif
     max-width: $max-width
     margin: 0px auto
-    padding: 10px 30px
-    font: 14pt/1.4em medium-content-sans-serif-font, Helvetica, sans-serif
+    padding: 20px
     color: $main-color
 header h1
     font-size: 300%
@@ -21,19 +21,19 @@ header h1
     margin: 0 0 -20px 0
     border: 0px solid red
 .node
-      stroke: #fff
-      stroke-width: 1.5px
+    stroke: #fff
+    stroke-width: 1.5px
 .link
-      stroke: #999
-      stroke-opacity: .6
+    stroke: #999
+    stroke-opacity: .6
 nav
-    font: inherit
     ul
         margin: 5px auto 0px auto
         padding: 0em
         list-style: none
         text-align: left
     li
+        font: inherit
         display: inline
         padding: 0em
 a
@@ -97,7 +97,6 @@ ol.loweralpha
     list-style-type: lower-alpha
 textarea, code, pre
     font-family: 'Consolas', 'Menlo', monospace!important
-    font-size: 15px
     background: $gray-background
     margin: 1.4em 0em
     padding: 1em
@@ -121,8 +120,8 @@ form
     h1:before
         content: ">"
         font-weight: normal
-        margin: -20px
-        padding-right: 30px
+        margin-left: -0.6em
+        margin-right: 0.22em
         color: #ccc
     h1 a, h2 a
         color: inherit
