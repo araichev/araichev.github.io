@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Blog - beatlog</title>
+  <link rel="icon" type="image/x-icon" href="https://raichev.net/theme/images/favicon.ico" />
+  <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
+  <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
+  <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
+<!-- Using MathJax, with the delimiters $ -->
+<!-- Conflict with pygments for the .mo and .mi -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+    styles: {
+    ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+    },
+    // tex2jax: {inlineMath: [['%','$'], ['\\(','\\)']],processEscapes: true}
+    tex2jax: {inlineMath: [['\\(','\\)']],processEscapes: true}
+    });
+    MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+    MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+    <header>
+      <h1>Alex Raichev</h1>
+<!--       <span><img id="flare" src="https://raichev.net/theme/images/frucht.svg"></span>
+ -->
+      <span id="graph"></span>
+    </header>
+
+    <nav>
+<ul>
+          <li><a href="/index.html"
+>Welcome</a></li>
+<li>&middot;<li>          <li><a href="/pages/works.html"
+>Works</a></li>
+<li>&middot;<li>          <li><a href="/blog.html"
+              class="active"
+>Blog</a></li>
+<li>&middot;<li>          <li><a href="/archives.html"
+>Blogindex</a></li>
+      </ul>
+    </nav>
+
+    <div id="mainContent">
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/rocking-man.html">Rocking Man</a></h1>
+      <p>By Billy Martin from 'Illy Beats Volume 2'.</p>
+<p><a class="reference external" href="https://raichev.net/files/rocking_man.mp3">Rocking Man</a></p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2012-04-24<br>
+          Tags:
+            <a href="https://raichev.net/tag/beatlog.html">
+            beatlog</a>,             <a href="https://raichev.net/tag/music.html">
+            music</a>,             <a href="https://raichev.net/tag/drums.html">
+            drums</a><br />
+        <a href="https://raichev.net/rocking-man.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/rocking-man.html">Comment</a>
+      </div>
+    </div>
+    <div class="pagination">
+    <ul>
+        <li class="prev"><a href="
+            https://raichev.net/tag/beatlog.html"
+            >&laquo;</a></li>
+        <li><a href="
+            https://raichev.net/tag/beatlog.html"
+            class=""
+            >1</a></li>
+        <li><a href="
+            https://raichev.net/tag/beatlog2.html"
+            class="active"
+            >2</a></li>
+    </ul>
+    </div>
+
+  <br><br>
+  <p><b>Why no comments?</b>
+  I used to do public comments but found that moderating and maintaining them took too much time in front of the computer, time better spent playing outdoors.
+  So these days I only do private comments, that is, you can email me comments regarding a post by clicking the 'Comment' link at the bottom of the post.
+  </p>
+
+    </div>
+
+    <div class="clearfloat"></div>
+
+    <div id="footer">
+      <p>Powered by <a href="https://blog.getpelican.com/">Pelican</a>
+    </div>
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="/js/graph.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="/js/video.js"></script>
+
+
+</body>
+</html>

@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>Alex Raichev - Articles by Alex Raichev</title>
+  <link rel="icon" type="image/x-icon" href="https://raichev.net/theme/images/favicon.ico" />
   <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
   <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
   <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
 <!-- Using MathJax, with the delimiters $ -->
 <!-- Conflict with pygments for the .mo and .mi -->
@@ -40,6 +42,8 @@
 <body>
     <header>
       <h1>Alex Raichev</h1>
+<!--       <span><img id="flare" src="https://raichev.net/theme/images/frucht.svg"></span>
+ -->
       <span id="graph"></span>
     </header>
 
@@ -63,334 +67,314 @@
 
 <ol id="post-list">
         <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/jag-mandir.html" rel="bookmark" title="Permalink to Jag Mandir">Jag Mandir</a></h2> </header>
+                <header> <h2 class="entry-title"><a href="https://raichev.net/adding-celery-with-rabbitmq-to-a-django-project-on-webfaction.html" rel="bookmark" title="Permalink to Adding Celery with RabbitMQ to a Django project on Webfaction">Adding Celery with RabbitMQ to a Django project on Webfaction</a></h2> </header>
                 <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:43:35+12:00"> 2012-04-24 </time>
+                    <time class="published" datetime="2014-08-02T00:00:00+12:00"> 2014-08-02 </time>
                     <address class="vcard author">By
                         <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
                     </address>
                 </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>'Jag Mandir' is a documentary by Werner Herzogabout a grand cultural performance in Udaipur, India.
-One of the dance and music acts of the performance contains a funky rhythm that i've adapted to drum set and call 'Jag Mandir'.
-Here is a lo-fi mobile phone recording of me playing it:</p>
-<p><a class="reference external" href="https://raichev.net/files/jag_mandir.mp3">Jag Mandir</a></p>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/the-apprentice.html" rel="bookmark" title="Permalink to The Apprentice">The Apprentice</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:43:35+12:00"> 2012-04-24 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>By Billy Martin from 'Illy Beats Volume 2'.</p>
-<p><a class="reference external" href="https://raichev.net/files/apprentice.mp3">The Apprentice</a></p>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/7-rules-for-communicating-clearly-and-concisely-in-email.html" rel="bookmark" title="Permalink to 7 Rules for Communicating Clearly and Concisely in Email">7 Rules for Communicating Clearly and Concisely in Email</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>Written by Leo Babauta 2007-10-05</p>
-<p>As email is the prevalent form of communication for many web workers, it’s gotten a lot of attention: how to handle your email, how to empty your inbox, email etiquette, and more.</p>
-<p>But perhaps not enough time is spent learning about how to communicate with email. And more specifically, how to communicate clearly and concisely, two crucial aspects of communication that are often overlooked.</p>
-<p>How many times have you received a rambling and incoherent email? How many times have you hit “Delete” because you have no idea what the person wants and no time to sort through the long message?</p>
-<p>The truth is that people don’t have time for long emails, and they don’t have time to try to find out exactly what you want. You have to tell them, in as short an email as possible.</p>
-<p>Misunderstandings are also a problem, because of the nature of email. People are often ambiguous, and their messages are interpreted differently than they intended, leading to a waste of time and energy.</p>
-<p>Communicate clearly and concisely with the following rules.</p>
+                <div class="entry-content"> <p>I recently added Celery with RabbitMQ to one of my Django projects on Webfaction.
+Along the way, i read lots of documentation, encountered difficulties, and got advice from the helpful staff at Webfaction.
+What worked for me in the end are the instructions below.
+May they might work for you too and save you some pain!</p>
+<p>I'll assume that you've already added Celery with RabbitMQ to your Django project in your <em>development</em> environment (encapsulated within a virtual environment) and have that working as desired.
+If not, follow <a class="reference external" href="http://celery.readthedocs.org">the Celery docs</a>.
+By the way, the latest version of Celery, version 3.1.13, works with Django out of the box and no longer requires installing the additional <tt class="docutils literal"><span class="pre">django-celery</span></tt> Django app.</p>
+<p>Now, let's add Celery with RabbitMQ to your <em>production</em> environment (encapsulated within a virtual environment) on Webfaction.</p>
+<div class="section" id="preparation">
+<h2>Preparation</h2>
+<ul class="simple">
+<li>Ssh into your Webfaction server. All the command line instructions below take place in that session.</li>
+<li>Also log in to your Webfaction control panel on the web</li>
+<li>When following the instructions below, replace text of the form <tt class="docutils literal">&lt;stuff&gt;</tt> with text appropriate to your situation. For example, replace <tt class="docutils literal">&lt;username&gt;</tt> by your Webfaction username.</li>
+</ul>
+</div>
+<div class="section" id="install-and-configure-erlang">
+<h2>Install and configure Erlang</h2>
+<ol class="arabic simple">
+<li>From your Webfaction control panel, create a new application with App category: Custom, App type: Custom app (listening on port). Note the port number that gets assigned to your app.</li>
+<li>Go to <a class="reference external" href="http://www.erlang.org/download.html">Erlang's download webpage</a> and copy the link to the latest .tar.gz version of Erlang</li>
+<li>In your ssh session, download the latest version of Erlang (currently OTP 17.1): <tt class="docutils literal">wget &lt;the Erlang link you copied&gt;</tt></li>
+<li>Unzip it: <tt class="docutils literal">gunzip <span class="pre">-c</span> otp_src_17.1.tar.gz | tar xf -</tt></li>
+<li>Change to the directory created: <tt class="docutils literal">cd otp_src_17.1</tt></li>
+<li>Configure the build: <tt class="docutils literal">./configure <span class="pre">--prefix=/home/&lt;username&gt;/</span></tt></li>
+<li>Make it: <tt class="docutils literal">make</tt></li>
+<li>Install it: <tt class="docutils literal">make install</tt></li>
+</ol>
+</div>
+<div class="section" id="test-erlang">
+<h2>Test Erlang</h2>
+<ol class="arabic simple">
+<li>Run Erlang on the port assigned to your Erlang app (noted in the first step): <tt class="docutils literal">epmd <span class="pre">-port</span> &lt;your Erlang port&gt; <span class="pre">-daemon</span></tt></li>
+<li>Check that it is running by looking for an <tt class="docutils literal">epmd</tt> process: <tt class="docutils literal">ps aux | grep epmd</tt></li>
+</ol>
+</div>
+<div class="section" id="install-and-configure-rabbitmq">
+<h2>Install and configure RabbitMQ</h2>
 <ol class="arabic">
-<li><p class="first">Use the minimum amount of sentences. I’ve been using the 5-sentence rule, but you can use more if needed. The question is: how many sentences are needed to communicate what you’re trying to communicate? Or how few sentences can you get away with. Cut it to that number, and no more. That ensures that you’re not wasting the time of the recipient, and that your email actually gets read (people tend to put off reading longer ones, and might even delete them).</p>
+<li><p class="first">From your Webfaction control panel, create a new application with App category: Custom, App type: Custom app (listening on port). Note the port number that gets assigned to your app.</p>
 </li>
-<li><p class="first">State what you want right away. Don’t write a long introduction, telling your life story, or any story for that matter. People aren’t interested. They just want to know what you want. So state that, in the first sentence. Skip the niceties. Don’t make the recipient wade through 10 paragraphs to find what action is needed for the email.</p>
+<li><p class="first">Go to <a class="reference external" href="http://www.rabbitmq.com/download.html">RabbitMQ's download webpage</a> and copy the link to the latest binary .tar.gz version of RabbitMQ (currently 3.3.4)</p>
 </li>
-<li><p class="first">Write about only one thing. There have been numerous times when I read an email, saw the action needed, and went and did it … only to find out that three other things were also needed to respond to the email. I’ve also responded to the first part of an email and not to others, just because I didn’t have enough time.</p>
-<p>If you write about multiple things, with multiple requests, you do two things: 1) make it likely that your email actually won’t be read or acted on; and 2) make it likely that even if it is acted on or responded to, the recipient will only do one of those things.</p>
-<p>Instead, stick to one subject, with one request. Once that’s done, you can send a second one, but don’t overwhelm the recipient if at all possible.</p>
+<li><p class="first">In your ssh session, download the latest binary version of RabbitMQ: <tt class="docutils literal">wget &lt;the RabbitMQ link you copied&gt;</tt></p>
 </li>
-<li><p class="first">Leave out the humor and emotions. These don’t come across well in an email. Even if you use emoticons. There’s just no way to express tone, inflection, etc. … and there’s no way to know if the recipient understands that you’re joking. If you’re communicating in person, you can see that the person didn’t understand the humor, and say, “I was only joking!” But not in email.</p>
-<p>So, unless you know the person well, and you know they’ll understand that you’re joking, leave out humor. It’s a risk that you don’t want to take.</p>
+<li><p class="first">Unzip it: <tt class="docutils literal">gunzip <span class="pre">-c</span> <span class="pre">rabbitmq-server-generic-unix-3.3.4.tar.gz</span> | tar xf -</tt></p>
 </li>
-<li><p class="first">Use “If... then” statements. As email is a back-and-forth method of communicating, and it can take a day or more for a response (in some cases), you want to limit the number of times a message has to go back and forth. To do that, use “if … then” statements, anticipating the possible responses to your question.</p>
-<p>For example, if you want to know if a person has received a response to an inquiry, instead of asking if they’ve received a response, and then waiting for a reply, and then sending another email based on that reply, try doing it all in one email:</p>
-<p>“Have you received a response from Mr. X yet? If so, please finish the report by Tuesday and email it to me. If not, can you follow up today and let me know the response?”</p>
-<p>By anticipating the possible responses, and giving a desired action for each possible response, you’re cutting a lot of wasted back-and-forth time.</p>
+<li><p class="first">Simlink RabbitMQ to the Erlang lib directory: <tt class="docutils literal">cd ~/lib/erlang/lib/; ln <span class="pre">-s</span> <span class="pre">../src/rabbitmq_server-3.3.4</span> <span class="pre">rabbitmq_server-3.3.4</span></tt></p>
 </li>
-<li><p class="first">Review for ambiguity, clarity. Once you’ve written an email, take a few seconds to read over it before pressing the Send button. Read it as if you were an outsider — how clear it it? Are there any ambiguous statements that could be interpreted the wrong way? If so, clarify.</p>
+<li><p class="first">Edit <tt class="docutils literal"><span class="pre">$HOME/rabbitmq_server-3.3.4/sbin/rabbitmq-defaults</span></tt>:</p>
+<blockquote>
+<div class="highlight"><pre><span></span>...
+<span class="c1"># comment these lines:</span>
+<span class="c1">#CONFIG_FILE=${SYS_PREFIX}/etc/rabbitmq/rabbitmq</span>
+<span class="c1">#LOG_BASE=${SYS_PREFIX}/var/log/rabbitmq</span>
+<span class="c1">#MNESIA_BASE=${SYS_PREFIX}/var/lib/rabbitmq/mnesia</span>
+<span class="c1"># add these lines:</span>
+<span class="nv">CONFIG_FILE</span><span class="o">=</span>/home/&lt;username&gt;/rabbitmq_server-3.1.0/sbin/
+<span class="nv">LOG_BASE</span><span class="o">=</span>/home/&lt;username&gt;/logs/user/rabbitmq <span class="c1"># create this directory!</span>
+<span class="nv">MNESIA_BASE</span><span class="o">=</span>/home/&lt;username&gt;/rabbitmq_server-3.1.0/sbin/
+...
+</pre></div>
+</blockquote>
 </li>
-<li><p class="first">Revise for conciseness. As you review, also see if there is a way you can shorten the email, remove words or sentences or even paragraphs. Leave nothing but the essential message you’re trying to communicate.</p>
+<li><p class="first">Create the RabbitMQ log directory: <tt class="docutils literal">mkdir <span class="pre">/home/&lt;username&gt;/logs/user/rabbitmq</span></tt></p>
+</li>
+<li><p class="first">Edit <tt class="docutils literal"><span class="pre">$HOME/rabbitmq_server-3.3.4/sbin/rabbitmq-env</span></tt>:</p>
+<blockquote>
+<div class="highlight"><pre><span></span>...
+<span class="c1"># add to the end</span>
+<span class="nb">export</span> <span class="nv">ERL_EPMD_PORT</span><span class="o">=</span>&lt;your Erlang port&gt;
+<span class="nb">export</span> <span class="nv">RABBITMQ_NODE_PORT</span><span class="o">=</span>&lt;your RabbitMQ port&gt;
+<span class="nb">export</span> <span class="nv">ERL_INETRC</span><span class="o">=</span><span class="nv">$HOME</span>/.erl_inetrc
+</pre></div>
+</blockquote>
+</li>
+<li><p class="first">Create <tt class="docutils literal">$HOME/hosts</tt>, replacing <tt class="docutils literal">dweb125</tt> with your Webfaction hostname prefix:</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="m">127</span>.0.0.1 developmenthost.developmentdomain developmenthost
+::1      developmenthost6.developmentdomain6 developmenthost6
+<span class="m">127</span>.0.0.1 dweb125 dweb125.webfaction.com
+</pre></div>
+</blockquote>
+</li>
+<li><p class="first">Create <tt class="docutils literal"><span class="pre">$HOME/.erl_inetrc</span></tt>:</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="o">{</span>hosts_file, <span class="s2">&quot;/home/&lt;username&gt;/hosts&quot;</span><span class="o">}</span>.
+<span class="o">{</span>lookup, <span class="o">[</span>file,native<span class="o">]}</span>.
+</pre></div>
+</blockquote>
 </li>
 </ol>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/a-room-with-a-view-of-hell.html" rel="bookmark" title="Permalink to A Room with a View of Hell">A Room with a View of Hell</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <img alt="youtube~N0onquIv89g" class="video" src="''" />
-<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=N0onquIv89g">here</a>.</p>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/best-flash-mob-ever.html" rel="bookmark" title="Permalink to Best Flash Mob Ever">Best Flash Mob Ever</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <img alt="youtube~ARwZ3scXQ7U" class="video" src="''" />
-<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=ARwZ3scXQ7U">here</a>.</p>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/death-star-canteen.html" rel="bookmark" title="Permalink to Death Star Canteen">Death Star Canteen</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <img alt="youtube~Sv5iEK-IEzw" class="video" src="''" />
-<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=Sv5iEK-IEzw">here</a>.</p>
- </div><!-- /.entry-content -->
-        </article></li>
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/epistle-to-be-left-in-the-earth.html" rel="bookmark" title="Permalink to Epistle to Be Left in the Earth">Epistle to Be Left in the Earth</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
-                    <address class="vcard author">By
-                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> <div class="line-block">
-<div class="line">...It is colder now,</div>
-<div class="line-block">
-<div class="line">there are many stars,</div>
-<div class="line-block">
-<div class="line">we are drifting</div>
 </div>
+<div class="section" id="test-rabbitmq">
+<h2>Test RabbitMQ</h2>
+<ol class="arabic simple">
+<li>Make sure you have Erlang running.  Start RabbitMQ via <tt class="docutils literal"><span class="pre">./rabbitmq_server-3.3.4/sbin/rabbitmq-server</span> <span class="pre">-detached</span></tt>, then check on its status via <tt class="docutils literal"><span class="pre">./rabbitmq_server-3.3.4/sbin/rabbitmqctl</span> status</tt>, and look for a line with <tt class="docutils literal"><span class="pre">{amqp,&lt;your</span> RabbitMQ <span class="pre">port&gt;,&quot;::&quot;}</span></tt>.</li>
+</ol>
 </div>
-<div class="line">North by the Great Bear,</div>
-<div class="line-block">
-<div class="line">the leaves are falling,</div>
+<div class="section" id="install-and-configure-celery">
+<h2>Install and configure Celery</h2>
+<ol class="arabic">
+<li><p class="first">Within your ssh session, activate the virtual environment for your Django project and install Celery via <tt class="docutils literal">pip install celery</tt>.</p>
+</li>
+<li><p class="first">Assuming you've already configured Celery to work in your development environment, all that's left to do is add the following line to the production version of your Django settings file:</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s1">&#39;amqp://guest:guest@localhost:&lt;your RabbitMQ port&gt;//&#39;</span>
+</pre></div>
+</blockquote>
+</li>
+</ol>
 </div>
-<div class="line">The water is stone in the scooped rock,</div>
-<div class="line-block">
-<div class="line">to southward</div>
+<div class="section" id="test-celery">
+<h2>Test Celery</h2>
+<ol class="arabic simple">
+<li>Within your ssh session and Django project directory, run <tt class="docutils literal">celery <span class="pre">-A</span> &lt;your Django project&gt; worker <span class="pre">-l</span> info</tt></li>
+</ol>
+<p>That's it.
+Fyew!
+You now have Erlang, RabbitMQ, and Celery installed and running on Webfaction.</p>
 </div>
-<div class="line">Red sun grey air:</div>
-<div class="line-block">
-<div class="line">the crows are</div>
+<div class="section" id="todo">
+<h2>Todo</h2>
+<p>I've heard that controlling Erlang + RabbitMQ + Celery with <a class="reference external" href="http://supervisord.org/">Supervisor</a> is a good idea.
+Will look into that.</p>
 </div>
-<div class="line">Slow on their crooked wings,</div>
-<div class="line-block">
-<div class="line">the jays have left us:</div>
-</div>
-<div class="line">Long since we passed the flares of Orion.</div>
-<div class="line">Each man believes in his heart he will die.</div>
-<div class="line">Many have written last thoughts and last letters.</div>
-<div class="line">None know if our deaths are now or forever:</div>
-<div class="line">None know if this wandering earth will be found.</div>
-<div class="line"><br /></div>
-<div class="line">We lie down and the snow covers our garments.</div>
-<div class="line">I pray you,</div>
-<div class="line-block">
-<div class="line">you (if any open this writing)</div>
-</div>
-<div class="line">Make in your mouths the words that were our names.</div>
-<div class="line">I will tell you all we have learned,</div>
-<div class="line-block">
-<div class="line">I will tell you everything:</div>
-</div>
-<div class="line">The earth is round,</div>
-<div class="line-block">
-<div class="line">there are springs under the orchards,</div>
-</div>
-<div class="line">The loam cuts with a blunt knife,</div>
-<div class="line-block">
-<div class="line">beware of</div>
-</div>
-<div class="line">Elms in thunder,</div>
-<div class="line-block">
-<div class="line">the lights in the sky are stars--</div>
-</div>
-<div class="line">We think they do not see,</div>
-<div class="line-block">
-<div class="line">we think also</div>
-</div>
-<div class="line">The trees do not know nor the leaves of the grasses hear us:</div>
-<div class="line">The birds too are ignorant.</div>
-<div class="line-block">
-<div class="line">Do not listen.</div>
-</div>
-<div class="line">Do not stand at dark in the open windows.</div>
-<div class="line">We before you have heard this:</div>
-<div class="line-block">
-<div class="line">they are voices:</div>
-</div>
-<div class="line">They are not words at all but the wind rising.</div>
-<div class="line">Also none among us has seen God.</div>
-<div class="line">(… We have thought often</div>
-<div class="line">The flaws of sun in the late and driving weather</div>
-<div class="line">Pointed to one tree but it was not so.)</div>
-<div class="line">As for the nights I warn you the nights are dangerous:</div>
-<div class="line">The wind changes at night and the dreams come.</div>
-<div class="line"><br /></div>
-<div class="line">It is very cold,</div>
-<div class="line-block">
-<div class="line">there are strange stars near Arcturus,</div>
-</div>
-<div class="line">Voices are crying an unknown name in the sky</div>
-<div class="line"><br /></div>
-<div class="line">~ Archibald MacLeish, 1930</div>
-<div class="line"><br /></div>
-<div class="line"><a class="reference external" href="https://raichev.net/files/epistle.mp3">The author's reading</a></div>
+<div class="section" id="references">
+<h2>References</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.markliu.me/2011/sep/29/django-celery-on-webfaction-using-rabbitmq/">2011 blog post by Mark Liu</a></li>
+<li><a class="reference external" href="https://www.zoe.vc/2013/celery-with-rabbitmq-3-1-0-on-webfaction/">2013 blog post by Alexander Herrmann</a></li>
+<li><a class="reference external" href="https://community.webfaction.com/questions/17223/django-celery-rabbitmq-errno-111-connection-refused?page=1&amp;focusedAnswerId=17239#17239">this Webfaction Community Question</a></li>
+</ul>
 </div>
  </div><!-- /.entry-content -->
         </article></li>
         <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/for-i-will-consider-my-cat-jeoffry.html" rel="bookmark" title="Permalink to For I will consider my cat Jeoffry...">For I will consider my cat Jeoffry...</a></h2> </header>
+                <header> <h2 class="entry-title"><a href="https://raichev.net/advice-from-ran-prieur.html" rel="bookmark" title="Permalink to Advice from Ran Prieur">Advice from Ran Prieur</a></h2> </header>
                 <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
+                    <time class="published" datetime="2014-07-27T00:00:00+12:00"> 2014-07-27 </time>
                     <address class="vcard author">By
                         <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
                     </address>
                 </footer><!-- /.post-info -->
-                <div class="entry-content"> <div class="line-block">
-<div class="line">For I will consider my Cat Jeoffry.</div>
-<div class="line">For he is the servant of the Living God duly and daily serving him.</div>
-<div class="line">For at the first glance of the glory of God in the East he worships in his way.</div>
-<div class="line">For this is done by wreathing his body seven times round with elegant quickness.</div>
-<div class="line">For then he leaps up to catch the musk, which is the blessing of God upon his prayer.</div>
-<div class="line">For he rolls upon prank to work it in.</div>
-<div class="line">For having done duty and received blessing he begins to consider himself.</div>
-<div class="line">For this he performs in ten degrees.</div>
-<div class="line">For first he looks upon his forepaws to see if they are clean.</div>
-<div class="line">For secondly he kicks up behind to clear away there.</div>
-<div class="line">For thirdly he works it upon stretch with the forepaws extended.</div>
-<div class="line">For fourthly he sharpens his paws by wood.</div>
-<div class="line">For fifthly he washes himself.</div>
-<div class="line">For sixthly he rolls upon wash.</div>
-<div class="line">For seventhly he fleas himself, that he may not be interrupted upon the beat.</div>
-<div class="line">For eighthly he rubs himself against a post.</div>
-<div class="line">For ninthly he looks up for his instructions.</div>
-<div class="line">For tenthly he goes in quest of food.</div>
-<div class="line">For having consider’d God and himself he will consider his neighbour.</div>
-<div class="line">For if he meets another cat he will kiss her in kindness.</div>
-<div class="line">For when he takes his prey he plays with it to give it a chance.</div>
-<div class="line">For one mouse in seven escapes by his dallying.</div>
-<div class="line">For when his day’s work is done his business more properly begins.</div>
-<div class="line">For he keeps the Lord’s watch in the night against the adversary.</div>
-<div class="line">For he counteracts the powers of darkness by his electrical skin and glaring eyes.</div>
-<div class="line">For he counteracts the Devil, who is death, by brisking about the life.</div>
-<div class="line">For in his morning orisons he loves the sun and the sun loves him.</div>
-<div class="line">For he is of the tribe of Tiger.</div>
-<div class="line">For the Cherub Cat is a term of the Angel Tiger.</div>
-<div class="line">For he has the subtlety and hissing of a serpent, which in goodness he suppresses.</div>
-<div class="line">For he will not do destruction, if he is well-fed, neither will he spit without provocation.</div>
-<div class="line">For he purrs in thankfulness, when God tells him he’s a good Cat.</div>
-<div class="line">For he is an instrument for the children to learn benevolence upon.</div>
-<div class="line">For every house is incomplete without him and a blessing is lacking in the spirit.</div>
-<div class="line">For the Lord commanded Moses concerning the cats at the departure of the Children of Israel from Egypt.</div>
-<div class="line">For every family had one cat at least in the bag.</div>
-<div class="line">For the English Cats are the best in Europe.</div>
-<div class="line">For he is the cleanest in the use of his forepaws of any quadruped.</div>
-<div class="line">For the dexterity of his defence is an instance of the love of God to him exceedingly.</div>
-<div class="line">For he is the quickest to his mark of any creature.</div>
-<div class="line">For he is tenacious of his point.</div>
-<div class="line">For he is a mixture of gravity and waggery.</div>
-<div class="line">For he knows that God is his Saviour.</div>
-<div class="line">For there is nothing sweeter than his peace when at rest.</div>
-<div class="line">For there is nothing brisker than his life when in motion.</div>
-<div class="line">For he is of the Lord’s poor and so indeed is he called by benevolence perpetually—Poor Jeoffry! poor Jeoffry! the rat has bit thy throat.</div>
-<div class="line">For I bless the name of the Lord Jesus that Jeoffry is better.</div>
-<div class="line">For the divine spirit comes about his body to sustain it in complete cat.</div>
-<div class="line">For his tongue is exceeding pure so that it has in purity what it wants in music.</div>
-<div class="line">For he is docile and can learn certain things.</div>
-<div class="line">For he can set up with gravity which is patience upon approbation.</div>
-<div class="line">For he can fetch and carry, which is patience in employment.</div>
-<div class="line">For he can jump over a stick which is patience upon proof positive.</div>
-<div class="line">For he can spraggle upon waggle at the word of command.</div>
-<div class="line">For he can jump from an eminence into his master’s bosom.</div>
-<div class="line">For he can catch the cork and toss it again.</div>
-<div class="line">For he is hated by the hypocrite and miser.</div>
-<div class="line">For the former is afraid of detection.</div>
-<div class="line">For the latter refuses the charge.</div>
-<div class="line">For he camels his back to bear the first notion of business.</div>
-<div class="line">For he is good to think on, if a man would express himself neatly.</div>
-<div class="line">For he made a great figure in Egypt for his signal services.</div>
-<div class="line">For he killed the Ichneumon-rat very pernicious by land.</div>
-<div class="line">For his ears are so acute that they sting again.</div>
-<div class="line">For from this proceeds the passing quickness of his attention.</div>
-<div class="line">For by stroking of him I have found out electricity.</div>
-<div class="line">For I perceived God’s light about him both wax and fire.</div>
-<div class="line">For the Electrical fire is the spiritual substance, which God sends from heaven to sustain the bodies both of man and beast.</div>
-<div class="line">For God has blessed him in the variety of his movements.</div>
-<div class="line">For, tho he cannot fly, he is an excellent clamberer.</div>
-<div class="line">For his motions upon the face of the earth are more than any other quadruped.</div>
-<div class="line">For he can tread to all the measures upon the music.</div>
-<div class="line">For he can swim for life.</div>
-<div class="line">For he can creep.</div>
-<div class="line"><br /></div>
-<div class="line">~ Christopher Smart, excerpt from 'Jubilate Agno', published in 1939 but written around 1760!</div>
-</div>
+                <div class="entry-content"> <p>&quot;For the record, here's what I practice and preach:
+1) Make money the easiest way available to you, short of crime.
+2) If you radically reduce your spending, you will not have to make as much money, and you might find that the sacrifices of low spending are more meaningful and empowering than the sacrifices of high earning.
+3) The most valuable use of money, after basic survival, is to carve out a small space where you can pursue quality of life on your own terms.&quot;</p>
  </div><!-- /.entry-content -->
         </article></li>
         <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/how-you-buy-fire.html" rel="bookmark" title="Permalink to How You Buy Fire">How You Buy Fire</a></h2> </header>
+                <header> <h2 class="entry-title"><a href="https://raichev.net/free-is-a-lie.html" rel="bookmark" title="Permalink to Free Is a Lie">Free Is a Lie</a></h2> </header>
                 <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
+                    <time class="published" datetime="2014-07-17T00:00:00+12:00"> 2014-07-17 </time>
                     <address class="vcard author">By
                         <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
                     </address>
                 </footer><!-- /.post-info -->
-                <div class="entry-content"> <p>I hereby start a beat log, a collection of danceable rhythms.
-Let the first item of the collection be the introduction to 'How You Buy Fire', an Afrobeat-inspired percussion piece i cowrote.
-Here is a lo-fi mobile phone recording of me playing the introduction:</p>
-<p><a class="reference external" href="https://raichev.net/files/how_you_buy_fire_intro.mp3">How You Buy Fire Intro</a></p>
+                <div class="entry-content"> <img alt="vimeo~96727211" class="video" src="''" />
+<p>A look into corporate surveillance, the dominant business model of the internet.</p>
+<img alt="youtube~YwWMrDbvpzE" class="video" src="''" />
+<p>Q&amp;A session after the talk.</p>
+<p>Videos sources: <a class="reference external" href="https://vimeo.com/96727211">the talk</a>;
+<a class="reference external" href="https://www.youtube.com/watch?v=YwWMrDbvpzE">the questions</a>.</p>
  </div><!-- /.entry-content -->
         </article></li>
         <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://raichev.net/i-wish-nothing-else.html" rel="bookmark" title="Permalink to I wish nothing else...">I wish nothing else...</a></h2> </header>
+                <header> <h2 class="entry-title"><a href="https://raichev.net/surviving-progress.html" rel="bookmark" title="Permalink to Surviving Progress">Surviving Progress</a></h2> </header>
                 <footer class="post-info">
-                    <time class="published" datetime="2012-04-24T00:00:00+12:00"> 2012-04-24 </time>
+                    <time class="published" datetime="2014-07-17T00:00:00+12:00"> 2014-07-17 </time>
                     <address class="vcard author">By
                         <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
                     </address>
                 </footer><!-- /.post-info -->
-                <div class="entry-content"> <div class="line-block">
-<div class="line">I wish nothing else but to speak simply</div>
-<div class="line">please grant me this privilege</div>
-<div class="line">because we have burdened our song with so much music</div>
-<div class="line">that it is slowly sinking</div>
-<div class="line">and our art has become so ornate</div>
-<div class="line">that the makeup has corroded her face</div>
-<div class="line">and it is time to say our few simple words</div>
-<div class="line">because tomorrow our soul sails away</div>
-<div class="line"><br /></div>
-<div class="line">~ Giorgos Seferis, 1940</div>
-<div class="line"><br /></div>
-<div class="line">Translated by Christos Papadimitriou from the Greek original:</div>
-<div class="line"><br /></div>
-<div class="line">Δε θέλω τίποτε άλλο παρά να μιλήσω απλά,</div>
-<div class="line">να μου δοθεί ετούτη η χάρη.</div>
-<div class="line">Γιατί και το τραγούδι το φορτώσαμε με τόσες μουσικές</div>
-<div class="line">που σιγά σιγά βουλιάζει.</div>
-<div class="line"><br /></div>
-<div class="line">Και την τέχνη μας τη στολίσαμε τόσο πολύ</div>
-<div class="line">που φαγώθηκε απ’ τα μαλάματα το πρόσωπό της.</div>
-<div class="line">Κι είναι καιρός να πούμε τα λιγοστά μας λόγια</div>
-<div class="line">γιατί η ψυχή μας αύριο κάνει πανιά</div>
-</div>
+                <div class="entry-content"> <p>&quot;As pressure on the environment accelerates and financial elites bankrupt nations, can our globally-entwined civilisation escape a final, catastrophic progress trap?&quot;</p>
+<p><a class="reference external" href="http://thoughtmaybe.com/surviving-progress/">Watch it on Thought Maybe</a></p>
+ </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/freedom-from-self-identification.html" rel="bookmark" title="Permalink to Freedom from Self-Identification">Freedom from Self-Identification</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2014-06-08T00:00:00+12:00"> 2014-06-08 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>This is one of my favorite chapters from <em>I am That</em> by Nisargadatta Maharaj,
+Chapter 98.</p>
+<p><strong>Maharaj</strong>: Can you sit on the floor? Do you need a pillow? Have you any questions to ask? Not that you need to ask, you can as well be quiet. To be, just be, is important. You need not ask anything, nor do anything. Such apparently lazy way of spending time is highly regarded in India. It means that for the time being you are free from the obsession with 'what next'. When you are not in a hurry and the mind is free from anxieties, it becomes quiet and in the silence something may be heard which is ordinarily too fine and subtle for perception. The mind must be open and quiet to see. What we are trying to do here is to bring our minds into the right state for understanding what is real.</p>
+<p><strong>Questioner</strong>: How do we learn to cut out worries?</p>
+<p><strong>M</strong>: You need not worry about your worries. Just <em>be</em>. Do not try to be quiet. Do not make 'being quiet' into a task to be performed. Don't be restless about 'being quiet', miserable about 'being happy'.
+Just be aware that you are and remain aware. Don't say, 'Yes, I am. What next?' There is no next in 'I am'. It is a timeless state.</p>
+<p><strong>Q</strong>: If it is a timeless state, it will assert itself anyhow.</p>
+<p><strong>M</strong>: You are what you are, timelessly, but of what use is it to you unless you know it and act on it? Your begging bowl may be of pure gold, but as long as you do not know it, you are a pauper. You must know your inner worth and trust it and express it in the daily sacrifice of desire and fear.</p>
+<p><strong>Q</strong>: If I know myself, shall I not desire and fear?</p>
+<p><strong>M</strong>: For some time the mental habits may linger in spite of the new vision, the habit of longing for the
+known past and fearing the unknown future. When you know these are of the mind only, you can go beyond them. As long as you have all sorts of ideas about yourself, you know yourself through the mist of these ideas.
+To know yourself as you are, give up all ideas. You cannot imagine the taste of pure water, you can only discover it by abandoning all flavourings.
+As long as you are interested in your present way of living, you will not abandon it. Discovery cannot come as long as you cling to the familiar. It is only when you realise fully the immense sorrow of your life and revolt against it, that a way out can be found.</p>
+<p><strong>Q</strong>: I can now see that the secret of India's eternal life lies in these dimensions of existence, of which India was always the custodian.</p>
+<p><strong>M</strong>: It is an open secret and there were always people willing and ready to share it. Teachers there are many, fearless disciples, very few.</p>
+<p><strong>Q</strong>: I am quite willing to learn.</p>
+<p><strong>M</strong>: Learning words is not enough. You may know the theory, but without the actual experience of yourself as the impersonal and unqualified centre of being, love and bliss, mere verbal knowledge is sterile.</p>
+<p><strong>Q</strong>: Then what am I to do?</p>
+<p><strong>M</strong>: Try to <em>be</em>, only to <em>be</em>. The all-important word is 'try'. Allot enough time daily for sitting quietly and trying, just trying, to go beyond the personality, with its addictions and obsessions. Don't ask how, it cannot be explained. You just keep on trying until you succeed. If you persevere, there can be no failure. What matters supremely is sincerity, earnestness; you must really have had surfeit of being the person you are, now see the urgent need of being free of this unnecessary self-identification with a bundle of memories and habits. This steady resistance against the unnecessary is the secret of success.
+After all, you are what you are every moment of your life, but you are never conscious of it, except, maybe, at the point of awakening from sleep. All you need is to be aware of being, not as a verbal statement, but as an ever-present fact. The awareness that you <em>are</em> will open your eyes to what you are.It is all very simple. First of all, establish a constant contact with your self, be with yourself all the time. Into self-awareness all blessings flow. Begin as a centre of observation, deliberate cognisance, and grow into a centre of love in action. 'I am' is a tiny seed which will grow into a mighty tree quite naturally, without a trace of effort.</p>
+<p><strong>Q</strong>: I see so much evil in myself. Must I not change it?</p>
+<p><strong>M</strong>: Evil is the shadow of inattention. In the light of self-awareness it will wither and fall off.
+All dependence on another is futile, for what others can give, others will take away. Only what is your own at the start will remain your own in the end. Accept no guidance but from within, and even then sift out all memories for they will mislead you. Even if you are quite ignorant of the ways and the means, keep quiet and look within; guidance is sure to come. You are never left without knowing what your next step should be. The trouble is that you may shirk it. The guru is there for giving you courage because of his experience and success. But only what you discover through your own awareness, your own effort, will be of permanent use to you.
+Remember, nothing you perceive is your own. Nothing of value can come to you from outside.
+It is only your own feeling and understanding that are relevant and revealing. Words, heard or read, will only create images in your mind, but you are not a mental image. You are the power of perception and action behind and beyond the image.</p>
+<p><strong>Q</strong>: You seem to advise me to be self-centred to the point of egoism. Must I not yield even to my interest in other people?</p>
+<p><strong>M</strong>: Your interest in others is egoistic, self-concerned, self-oriented. You are not interested in others as persons, but only as far as they enrich or ennoble your own image of yourself. And the ultimate
+in selfishness is to care only for the protection, preservation and multiplication of one's own body. By <em>body</em> I mean all that is related to your name and shape: your family, tribe, country, race, etc. To be attached to one's name and shape is selfishness. A man who knows that he is neither body nor mind cannot be selfish, for he has nothing to be selfish for. Or, you may say, he is equally 'selfish' on behalf of everybody he meets.
+Everybody's welfare is his own. The feeling 'I am the world, the world is myself' becomes quite natural. Once it is established, there is just no way of being selfish. To be selfish means to covet, acquire, accumulate on behalf of the part against the whole.</p>
+<p><strong>Q</strong>: One may be rich with many possessions, by inheritance, or marriage, or just good luck.</p>
+<p><strong>M</strong>: If you do not hold on to, it will be taken away from you.</p>
+<p><strong>Q</strong>: In your present state can you love another person as a person?</p>
+<p><strong>M</strong>: I am the other person, the other person is myself. In name and shape we are different, but there is no separation. At the root of our being we are one.</p>
+<p><strong>Q</strong>: Is it not so whenever there is love between people?</p>
+<p><strong>M</strong>: It is, but they are not conscious of it. They feel the attraction, but do not know the reason.</p>
+<p><strong>Q</strong>: Why is love selective?</p>
+<p><strong>M</strong>: Love is not selective, desire is selective. In love there are no strangers. When the centre of selfishness is no longer, all desires for pleasure and fear of pain cease; one is no longer interested in being happy; beyond happiness there is pure intensity, inexhaustible energy, the ecstasy of giving from a perennial source.</p>
+<p><strong>Q</strong>: Mustn't I begin by solving for myself the problem of right and wrong?</p>
+<p><strong>M</strong>: What is pleasant people take it to be good, and what is painful they take it to be bad.</p>
+<p><strong>Q</strong>: Yes, that is how it is with us, ordinary people. But how is it with you, at the level of oneness? For you what is good and what is bad?</p>
+<p><strong>M</strong>: What increases suffering is bad and what removes it is good.</p>
+<p><strong>Q</strong>: So you deny goodness to suffering itself. There are religions in which suffering is considered good and noble.</p>
+<p><strong>M</strong>: Karma, or destiny, is an expression of a beneficial law: the universal trend towards balance, harmony and unity. At every moment, whatever happens now, is for the best. It may appear painful and ugly, a suffering bitter and meaningless, yet considering the past and the future it is for the
+best, as the only way out of a disastrous situation.</p>
+<p><strong>Q</strong>: Does one suffer only for one's own sins?</p>
+<p><strong>M</strong>: One suffers along with what one thinks oneself to be. If you feel one with humanity, you suffer with humanity.</p>
+<p><strong>Q</strong>: And since you claim to be one with the sufferers, there is no limit in time or space to your suffering!</p>
+<p><strong>M</strong>: To be is to suffer. The narrower the circle of my self-identification, the more acute the suffering caused by desire and fear.</p>
+<p><strong>Q</strong>: Christianity accepts suffering as purifying and ennobling, while Hinduism looks at it with distaste.</p>
+<p><strong>M</strong>: Christianity is one way of putting words together and Hinduism is another. The real is behind and beyond words, incommunicable, directly experienced, explosive in its effect on the mind. It is easily had when nothing else is wanted. The unreal is created by imagination and perpetuated by desire.</p>
+<p><strong>Q</strong>: Can there be no suffering that is necessary and good?</p>
+<p><strong>M</strong>: Accidental or incidental pain is inevitable and transitory.
+Deliberate pain, inflicted with even the best of intentions, is meaningless and cruel.</p>
+<p><strong>Q</strong>: You would not punish crime?</p>
+<p><strong>M</strong>: Punishment is but legalised crime. In a society built on prevention, rather than retaliation, there would be very little crime. The few exceptions, as of unsound mind and body, would be treated medically.</p>
+<p><strong>Q</strong>: You seem to have little use for religion.</p>
+<p><strong>M</strong>: What is religion? A cloud in the sky. I live in the sky, not in the clouds, which are so many words held together. Remove the verbiage and what remains? Truth remains. My home is in the
+unchangeable, which appears to be a state of constant reconciliation and integration of opposites. People come here to learn about the actual existence of such a state, the obstacles to its emergence, and, once perceived, the art of stabilising it in consciousness, so that there is no clash between understanding and living. The state itself is beyond the mind and need not be learnt. The mind can only focus the obstacles.
+Seeing an obstacle as an obstacle is effective, because it is the mind acting on the mind. Begin from the beginning: give attention to the fact that you are. At no time can you say 'I was not' all you can say is, 'I do not remember'. You know how unreliable memory is. Accept that, engrossed in petty personal affairs you have forgotten what you are.
+Try to bring back the lost memory through the elimination of the known. You cannot be told what will happen, nor is it desirable.
+Anticipation will create illusions. In the inner search the unexpected is inevitable.
+The discovery is invariably beyond all imagination. Just as an unborn child cannot know life after birth, for it has nothing in its mind with which to form a valid picture, so is the mind unable to think of the real in terms of the unreal, except by negation: 'Not this, not that'. The acceptance of the unreal as real is the obstacle.
+To see the false as false and abandon the false brings reality into being.
+The states of utter clarity, immense love, utter fearlessness, these are mere words at the present, outlines without colour, hints at what can be. You are like a blind man expecting to see as a result of an operation, provided you do not shirk the operation! In the state that I am in, words do not matter at all.
+Nor is there any addiction to words. Only facts matter.</p>
+<p><strong>Q</strong>: There can be no religion without words.</p>
+<p><strong>M</strong>: Recorded religions are mere heaps of verbiage.
+Religions show their true face in action, in silent action.
+To know what a man believes, watch how he acts.
+For most people, service of their bodies and their minds is their religion.
+They may have religious ideas, but they do not act on them.
+They play with them and are often very fond of them, but they will not act on them.</p>
+<p><strong>Q</strong>: Words are needed for communication.</p>
+<p><strong>M</strong>: For exchange of information, yes, but real communication between people is not verbal. For establishing and maintaining relationship, affectionate awareness expressed in direct action is required.
+Not what you say, but what you do is that matters.
+Words are made by the mind and are meaningful only on the level of the mind.
+Take the word 'bread'.
+You can neither eat it nor live by it.
+It merely conveys an idea.
+It acquires meaning only with the actual eating.
+In the same sense I am telling you that the Normal State is not verbal.
+I may say it is wise love expressed in action, but these words convey little, unless you experience them in their fullness and beauty.
+Words have their limited usefulness, but we put no limits to them and bring ourselves to the brink of disaster.
+Our noble ideas are finely balanced by ignoble actions.
+We talk of God, Truth and Love, but instead of direct experience we have definitions.
+Instead of enlarging and deepening action we chisel our definitions.
+And we imagine that we know what we can define!</p>
+<p><strong>Q</strong>: How can one convey experience except through words?</p>
+<p><strong>M</strong>: Experience cannot be conveyed through words.
+It comes with action.
+A man who is intense in his experience will radiate confidence and courage.
+Others too will act and gain experience born out of action.
+Verbal teaching has its use, it prepares the mind for voiding itself of its accumulations.
+A level of mental maturity is reached when nothing external is of any value and the heart is ready to relinquish all.
+Then the real has a chance and it grasps it.
+Delays, if any, are caused by the mind being unwilling to see or to discard.</p>
+<p><strong>Q</strong>: Are we so totally alone?</p>
+<p><strong>M</strong>: Oh, no, we are not.
+Those who have, can give.
+And such givers are many.
+The world itself is a supreme gift, maintained by loving sacrifice.
+But the right receivers, wise and humble, are so few.
+'Ask and you shall be given' is the eternal law.
+So many words you have learnt, so many you have spoken.
+You know everything, but you do not know yourself.
+For the self is not known through words.
+Only direct insight will reveal it.
+Look within, search within.</p>
+<p><strong>Q</strong>: It is very difficult to abandon words.
+Our mental life is one continuous stream of words.</p>
+<p><strong>M</strong>: It is not a matter of easy or difficult.
+You have no alternative.
+Either you try or you don't. It is up to you.</p>
+<p><strong>Q</strong>: I have tried many times and failed.</p>
+<p><strong>M</strong>: Try again. If you keep on trying, something may happen. But if you don't, you are stuck. You may know all the right words, quote the scriptures, be brilliant in your discussions, and yet remain a bag of bones. Or you may be inconspicuous and humble, an insignificant person altogether, yet glowing with loving kindness and deep wisdom.</p>
  </div><!-- /.entry-content -->
         </article></li>
 </ol><!-- /#posts-list -->
@@ -455,6 +439,58 @@ Here is a lo-fi mobile phone recording of me playing the introduction:</p>
             https://raichev.net/author/alex-raichev14.html"
             class=""
             >14</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev15.html"
+            class=""
+            >15</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev16.html"
+            class=""
+            >16</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev17.html"
+            class=""
+            >17</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev18.html"
+            class=""
+            >18</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev19.html"
+            class=""
+            >19</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev20.html"
+            class=""
+            >20</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev21.html"
+            class=""
+            >21</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev22.html"
+            class=""
+            >22</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev23.html"
+            class=""
+            >23</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev24.html"
+            class=""
+            >24</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev25.html"
+            class=""
+            >25</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev26.html"
+            class=""
+            >26</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev27.html"
+            class=""
+            >27</a></li>
         <li class="next"><a href="
             https://raichev.net/author/alex-raichev13.html"
             >&raquo;</a></li>
@@ -469,14 +505,10 @@ Here is a lo-fi mobile phone recording of me playing the introduction:</p>
       <p>Powered by <a href="https://blog.getpelican.com/">Pelican</a>
     </div>
 
-  <script src="/js/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
   <script src="/js/graph.js"></script>
-  <script src="/js/jquery.v2.1.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script src="/js/video.js"></script>
-
-
-  <!-- Piwik
-
 
 
 </body>

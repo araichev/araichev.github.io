@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Alex Raichev - Articles by Alex Raichev</title>
+  <link rel="icon" type="image/x-icon" href="https://raichev.net/theme/images/favicon.ico" />
+  <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
+  <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
+  <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
+<!-- Using MathJax, with the delimiters $ -->
+<!-- Conflict with pygments for the .mo and .mi -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+    styles: {
+    ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+    },
+    // tex2jax: {inlineMath: [['%','$'], ['\\(','\\)']],processEscapes: true}
+    tex2jax: {inlineMath: [['\\(','\\)']],processEscapes: true}
+    });
+    MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+    MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+    <header>
+      <h1>Alex Raichev</h1>
+<!--       <span><img id="flare" src="https://raichev.net/theme/images/frucht.svg"></span>
+ -->
+      <span id="graph"></span>
+    </header>
+
+    <nav>
+<ul>
+          <li><a href="/index.html"
+              class="active"
+>Welcome</a></li>
+<li>&middot;<li>          <li><a href="/pages/works.html"
+>Works</a></li>
+<li>&middot;<li>          <li><a href="/blog.html"
+>Blog</a></li>
+<li>&middot;<li>          <li><a href="/archives.html"
+>Blogindex</a></li>
+      </ul>
+    </nav>
+
+    <div id="mainContent">
+<section id="content">
+<h2>Articles by Alex Raichev</h2>
+
+<ol id="post-list">
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/jumping-jack.html" rel="bookmark" title="Permalink to Jumping Jack">Jumping Jack</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2013-03-28T00:00:00+13:00"> 2013-03-28 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>I'd like to present some solutions to the following puzzle that appeared as
+<a class="reference external" href="http://programmingpraxis.com/2013/03/22/jumping-jack/">March 22, 2013 Programming Praxis puzzle</a>.</p>
+<p>Jack starts at 0 on the number line and jumps one unit in either direction. Each successive jump he makes is longer than the previous by 1 unit, and can be made in either direction.
+Design an algorithm that takes an integer n and returns a shortest sequence of jumps that Jack can perform to reach n along with the length of that sequence.</p>
+<div class="section" id="algorithm-1">
+<h2>Algorithm 1</h2>
+<p>Brute-force.
+Perform a breadth-first search through the binary tree of all valid jump/integer summand sequences (0, -1, 1, -1 - 2, -1 + 2, 1 - 2, 1 + 2, ...) and stop when the target sum n is reached.</p>
+</div>
+<div class="section" id="algorithm-2">
+<h2>Algorithm 2</h2>
+<p>Brute-force with pruning.
+Label the nodes of the binary tree with their partial sums and order the nodes of so that the left child is less than the right child (0, -1, 1, -3, -1, -1, 3, ...).
+Notice that every pair of nodes at the same height with equal partial sums have equal subtrees.
+Notice also that every pair of nodes at the same height with partial sums of opposite sign have mirror image subtrees.
+Notice also that flipping the signs/turns of a path with partial sum s yields a path of the same length to -s.
+So in our breadth-first search, we don't need to search down a node at a given height if we've already discovered a node at the same height with the same magnitude partial sum.</p>
+<p>Analyzing the worst-case time complexity of Algorithm 1 or Algorithm 2 requires knowing at what tree height the given number n is first discovered.
+If you can figure that out, then you probably discovered...</p>
+</div>
+<div class="section" id="algorithm-3">
+<h2>Algorithm 3</h2>
+<p>Smart-force.
+Find the least integer k such that t_k := 1 + 2 + 3 + ... + k &gt;= |n| and t_k has the same parity (evenness/oddness) as |n|.
+Then flip the signs of the summands of t_k in a systematic way to total n.</p>
+<p>Here are the details.
+Notice that t_k = k(k + 1)/2, a triangular number.
+Setting t_k = |n| and solving for k gives the ceiling of (-1 + sqrt(1 + 8 |n|))/2.
+So k equals the ceiling or 1 or 2 plus it, whichever of those three numbers has the same parity as n and is least.
+Here we're using the fact that the set {t, t + s, t + s + (s + 1)} of three consecutive triangular numbers contains both even and odd numbers for any positive integers t, s.
+(Simply check all four parity possibilities for t, s.)</p>
+<p>To find a minimal length sum for n, first compute d := (t_k - n)/2.
+Because t_k &gt;= |n| and t_k and n have the same parity, d lies in the set {0, 1, 2, ..., t_k}.
+Now repeatedly subtract: d = a_k (k) + r_k, r_k = a_{k-1} (k-1) + r_{k-1}, ..., r_2 = a_1 (1) + r_1, choosing each a_i maximally in {0, 1}.
+By the lemma below,  r_1 = 0.
+So d = sum_{i=1}^k a_i i.
+Thus n = t_k - 2d = sum_{i=1}^k i - sum_{i=1}^k 2a_i i = sum_{i=1}^k (1 - 2a_i) i and 1 - 2a_i in {-1, 1}.
+So the sequence b_i := 1 - 2a_i is a path, and by the minimality of k, b_i is a minimal path.</p>
+</div>
+<div class="section" id="algorithm-3-example">
+<h2>Algorithm 3 example</h2>
+<p>Consider the target number n=12.
+According to Algorithm 3, the possibilities for k are 5, 6, 7.
+The corresponding values of t_k are 15, 21, and 28.
+Since 28 is the least of these with the same parity as n, we see that k=7.
+So d = (t_k - n)/2 = 8, which we write as 1 + 7 according to the algorithm.
+Thus a shortest path to 12 is -1 + 2 + 3 + 4 + 5 + 6 - 7.</p>
+<p>I say <em>a</em> shortest path, because shortest paths aren't unique in general.
+For example, 1 + 2 -3 + 4 - 5 + 6 + 7 also works.</p>
+</div>
+<div class="section" id="algorithm-3-correctness">
+<h2>Algorithm 3 correctness</h2>
+<p><em>Lemma</em>: Let A_k = {0, 1, 2, ..., t_k}.
+Then a number lies in A_k if and only if it can be expressed as a sum sum_{i=1}^k a_i i for some a_i in {0, 1}.</p>
+<p><em>Proof</em>: By induction on k.
+First, 0 = sum_{i=1}^0 1, the empty sum.
+Now suppose the result holds for all k - 1 &gt;= 0 and let d in A_k.
+Repeatedly subtract: d = a_k (k) + r_k, r_k = a_{k-1} (k-1) + r_{k-1}, ..., choosing each a_i maximally in {0, 1} and stopping at the first r_j in A_j for some j &lt; k.
+Then by the induction hypothesis, r_j = sum_{i=0}^j b_i i for some b_i in {0, 1}.
+Then d = r_j + sum_{i=j+1}^k a_k i, as desired.
+Conversely, a sum s := sum_{i=1}^k a_i i for a_i in {0, 1} satisfies 0 &lt;= s &lt;= sum_{i=1}^k i = t_k, and so s in A_k.</p>
+</div>
+<div class="section" id="algorithm-3-time-complexity">
+<h2>Algorithm 3 time complexity</h2>
+<p>Assuming that arithmetic operations are constant time, it takes O(1) time to compute k from n, and hence the length of a minimal path to n.
+Then it takes O(k) time to find a minimal length sum for d and O(k) time to use that sum to produce a minimal length sum for n.
+So O(k) = O(sqrt(n)) time all up.</p>
+</div>
+ </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/hourly-wage.html" rel="bookmark" title="Permalink to Hourly Wage">Hourly Wage</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2013-03-19T00:00:00+13:00"> 2013-03-19 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Suppose you work in New Zealand, would like to earn a given net weekly income (for 52 weeks per year) after income tax, and would like to work a given number of hours per week (for 47 weeks per year; NZ workers get 4 weeks annual leave plus roughly 1 week of public holidays).
+What gross hourly income must you earn?</p>
+<p>To answer that question, i used the <a class="reference external" href="http://www.ird.govt.nz/how-to/taxrates-codes/itaxsalaryandwage-incometaxrates.html">1 April 2012 to 31 March 2013 NZ income tax rates for individuals</a>, wrote <a class="reference external" href="https://github.com/araichev/hourly_wage">this Python program</a>, and used it with <a class="reference external" href="http://www.sagemath.org">Sage</a> to make this table:</p>
+<object data="https://raichev.net/files/hourly_wage.svg" style="width: 650px;" type="image/svg+xml">
+</object>
+<p>The gross hourly incomes needed are displayed in the main body of the table in New Zealand dollars, rounded to the nearest dollar and excluding GST.
+For example, to earn $1200/week after tax, working 25 hours/week, you need to earn $68/hour before tax.</p>
+ </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/science-and-python-retrospective-of-a-mostly-successful-decade.html" rel="bookmark" title="Permalink to Science and Python: retrospective of a (mostly) successful decade">Science and Python: retrospective of a (mostly) successful decade</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2013-02-27T00:00:00+13:00"> 2013-02-27 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <img alt="youtube~F4rFuIb1Ie4" class="video" src="''" />
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=F4rFuIb1Ie4">here</a>.</p>
+ </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/happiness-beyond-thought-2.html" rel="bookmark" title="Permalink to Happiness Beyond Thought 2">Happiness Beyond Thought 2</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2013-02-13T00:00:00+13:00"> 2013-02-13 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>An interview with Gary Weber, a self-reporter of persistent nonduality and participant in several neuroscience experiments regarding the brain's selfing network.</p>
+<p><a class="reference external" href="http://bloggingheads.tv/videos/14840">Watch it on Bloggingheads.tv</a></p>
+ </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://raichev.net/in-grave-danger-of-falling-food.html" rel="bookmark" title="Permalink to In Grave Danger of Falling Food">In Grave Danger of Falling Food</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2013-02-13T00:00:00+13:00"> 2013-02-13 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://raichev.net/author/alex-raichev.html">Alex Raichev</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <img alt="youtube~CjWaP0iQmWw" class="video" src="''" />
+<p>1989 documentary about Bill Mollison, cofounder of the permaculture movement.</p>
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=CjWaP0iQmWw">here</a>.</p>
+ </div><!-- /.entry-content -->
+        </article></li>
+</ol><!-- /#posts-list -->
+    <div class="pagination">
+    <ul>
+        <li class="prev"><a href="
+            https://raichev.net/author/alex-raichev17.html"
+            >&laquo;</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev.html"
+            class=""
+            >1</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev2.html"
+            class=""
+            >2</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev3.html"
+            class=""
+            >3</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev4.html"
+            class=""
+            >4</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev5.html"
+            class=""
+            >5</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev6.html"
+            class=""
+            >6</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev7.html"
+            class=""
+            >7</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev8.html"
+            class=""
+            >8</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev9.html"
+            class=""
+            >9</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev10.html"
+            class=""
+            >10</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev11.html"
+            class=""
+            >11</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev12.html"
+            class=""
+            >12</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev13.html"
+            class=""
+            >13</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev14.html"
+            class=""
+            >14</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev15.html"
+            class=""
+            >15</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev16.html"
+            class=""
+            >16</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev17.html"
+            class=""
+            >17</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev18.html"
+            class="active"
+            >18</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev19.html"
+            class=""
+            >19</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev20.html"
+            class=""
+            >20</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev21.html"
+            class=""
+            >21</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev22.html"
+            class=""
+            >22</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev23.html"
+            class=""
+            >23</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev24.html"
+            class=""
+            >24</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev25.html"
+            class=""
+            >25</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev26.html"
+            class=""
+            >26</a></li>
+        <li><a href="
+            https://raichev.net/author/alex-raichev27.html"
+            class=""
+            >27</a></li>
+        <li class="next"><a href="
+            https://raichev.net/author/alex-raichev19.html"
+            >&raquo;</a></li>
+    </ul>
+    </div>
+</section><!-- /#content -->
+    </div>
+
+    <div class="clearfloat"></div>
+
+    <div id="footer">
+      <p>Powered by <a href="https://blog.getpelican.com/">Pelican</a>
+    </div>
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="/js/graph.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="/js/video.js"></script>
+
+
+</body>
+</html>

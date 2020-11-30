@@ -1,15 +1,32 @@
+def makeContent(el, imgURL, iframeURL):
+    """
+    Insert the given image URL into the src tag of the given
+    image element and replace the element with an iframe on click
+    """
+    # Set image URL
+    $(el).attr("src", imgURL)
+    # Replace image with iframe on click
+    $(el).click(def():
+        # The height and width of the iFrame should be the same as parent
+        iframe = $('<iframe/>', {'frameborder': '0', 'src': iframeURL,
+          'width': $(el).width(), 'height': $(el).height()})
+        $(el).replaceWith(iframe)
+    )
+
+
 $("img.video").each(def():
     """
     Go through each image on this page tagged with the 'video'
     class and insert the appropriate thumbnail image of the video
-    from the web. 
+    from the web.
     Upon clicking, replace the image with an iframe of the video.
-    Allows for faster page loads compared to directly including 
+    Allows for faster page loads compared to directly including
     the iframes.
     """
     el = this
     # Get video type and ID
     vType, vID = this.alt.split('~')
+
     # Get corresponding imgURL and iframeURL
     if vType == 'youtube':
         imgURL = 'https://i.ytimg.com/vi/' + vID + '/hqdefault.jpg'
@@ -26,21 +43,3 @@ $("img.video").each(def():
             makeContent(el, imgURL, iframeURL)
         )
 )
-
-def makeContent(el, imgURL, iframeURL):
-    """
-    Insert the given image URL into the src tag of the given
-    image element and replace the element with an iframe on click
-    """
-    # Set image URL
-    $(el).css('background-image', 'url(' + imgURL + ')')
-    # Overlay the Play icon to make it look like a video player
-    $(el).append('<div class="play"></div>')
-    # Replace image with iframe on click
-    $(el).click(def():
-        # The height and width of the iFrame should be the same as parent
-        iframe = $('<iframe/>', {'frameborder': '0', 'src': iframeURL, 
-          'width': $(el).width(), 'height': $(el).height()})
-        $(el).replaceWith(iframe)
-    )
-

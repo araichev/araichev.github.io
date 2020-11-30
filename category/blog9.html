@@ -5,9 +5,11 @@
   <title>      Alex Raichev > Blog
  > Blog
 </title>
+  <link rel="icon" type="image/x-icon" href="https://raichev.net/theme/images/favicon.ico" />
   <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
   <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
   <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
 <!-- Using MathJax, with the delimiters $ -->
 <!-- Conflict with pygments for the .mo and .mi -->
@@ -42,6 +44,8 @@
 <body>
     <header>
       <h1>Alex Raichev</h1>
+<!--       <span><img id="flare" src="https://raichev.net/theme/images/frucht.svg"></span>
+ -->
       <span id="graph"></span>
     </header>
 
@@ -61,334 +65,120 @@
 
     <div id="mainContent">
     <div class="blogItem">
-      <h1><a href="https://raichev.net/delicious-dal.html">Delicious Dal</a></h1>
-      <div class="section" id="ingredients">
-<h2>Ingredients</h2>
+      <h1><a href="https://raichev.net/the-retro-future.html">The Retro Future</a></h1>
+      <p>In his latest essay, Archdruid John Michael Greer offers advice on constructive action that individuals can take now amid the staircase decline of industrial civilization:</p>
 <ul class="simple">
-<li>1.5 C     green or brown lentils</li>
-<li>5 C       water</li>
-<li>2 T       coconut oil</li>
-<li>1 400mL can chopped tomatoes</li>
-<li>1         onion chopped</li>
-<li>2         cloves garlic chopped</li>
-<li>1 T       shredded ginger</li>
-<li>1 t       ground turmeric</li>
-<li>1         hot chili</li>
-<li>1         red capsicum chopped</li>
-<li>1 t       salt</li>
-<li>1 t       cumin seeds</li>
-<li>2 t       black mustard seeds</li>
-<li>some      coriander leaf for garnish</li>
+<li>Collapse now and beat the rush</li>
+<li>Learn the green wizardry of appropriate technologies</li>
+<li>Regress to more robust and less economically, socially, and environmentally destructive technologies</li>
 </ul>
-</div>
-<div class="section" id="directions">
-<h2>Directions</h2>
-<ol class="arabic simple">
-<li>Except for 1 T coconut oil, the cumin seeds, and the mustard seeds, put everything into a pressure cooker, and cook at high pressure for 11 minutes.</li>
-<li>Fry the reserved coconut oil, cumin seeds, and mustard seeds until the mustard seeds begin to pop.</li>
-<li>Add the fried seeds and oil to the soup, garnish with coriander leaf, and serve.</li>
-</ol>
-</div>
-<div class="section" id="notes">
-<h2>Notes</h2>
-<p>Serves about 6.
-C = cup, T = tablespoon, t = teaspoon.</p>
-</div>
+<p>The essay can be found on his blog, The Archdruid Report, <a class="reference external" href="http://thearchdruidreport.blogspot.com/2015/04/the-retro-future.html">here</a> and summarizes well the themes of the blog.</p>
 
 
       <div class="blogMeta">
         Author: Alex Raichev<br>
-        Date: 2013-04-27<br>
+        Date: 2015-04-18<br>
           Tags:
-            <a href="https://raichev.net/tag/recipe.html">
-            recipe</a><br />
-        <a href="https://raichev.net/delicious-dal.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/delicious-dal.html">Comment</a>
+            <a href="https://raichev.net/tag/advice.html">
+            advice</a>,             <a href="https://raichev.net/tag/resilience.html">
+            resilience</a><br />
+        <a href="https://raichev.net/the-retro-future.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/the-retro-future.html">Comment</a>
       </div>
     </div>
     <div class="blogItem">
-      <h1><a href="https://raichev.net/store-credit.html">Store Credit</a></h1>
-      <p>Here's the store credit problem from <a class="reference external" href="http://code.google.com/codejam/contest/dashboard?c=351101#s=p0">Google Code Jam Qualification Round Africa 2010</a>, which i discovered via <a class="reference external" href="http://programmingpraxis.com">Programming Praxis</a>:</p>
-<p>You receive a credit C at a local store and would like to buy two items. You first walk through the store and create a list L of all available items. From this list you would like to buy two items that add up to the entire value of the credit. The solution you provide will consist of the two integers indicating the positions of the items in your list (smaller number first). For instance, with C=100 and L={5,75,25} the solution is 2,3; with C=200 and L={150,24,79,50,88,345,3} the solution is 1,4; and with C=8 and L={2,1,9,4,4,56,90,3} the solution is 4,5.</p>
-<div class="section" id="algorithm-1">
-<h2>Algorithm 1</h2>
-<p>Brute force. Test all pairs in the list. O(n^2) time and O(n) space.</p>
-</div>
-<div class="section" id="algorithm-2">
-<h2>Algorithm 2</h2>
-<p>Sort the list and then iterate over the list, at each step looking for the complementary price of the current price via binary search.
-O(n lg n) time and O(n) space.</p>
-</div>
-<div class="section" id="algorithm-3">
-<h2>Algorithm 3</h2>
-<p>Store the prices and indices in a dictionary and then iterate over the dictionary, at each step looking for the complementary price. Since dictionary look-up is constant time on average, this is an O(n) time (in the average case) and O(n) space algorithm.  Hooray!</p>
-<p>Here's a Python 2.7 implementation:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_pair</span><span class="p">(</span><span class="n">credit</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
-    <span class="c1"># Make a dictionary with items of the form</span>
-    <span class="c1"># (price, set of indices of items with that price).</span>
-    <span class="c1"># Note that the price list could contain duplicate prices.</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># + 1 to index from 1 instead of 0.</span>
-    <span class="k">for</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">price</span> <span class="o">&lt;=</span> <span class="n">credit</span><span class="p">:</span>
-            <span class="c1"># Remove price index from d.</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="c1"># Check whether there&#39;s a complementary price in d.</span>
-            <span class="k">if</span> <span class="n">credit</span> <span class="o">-</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="c1"># This works even if price == credit - price.</span>
-                <span class="n">j</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">credit</span> <span class="o">-</span> <span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
-            <span class="c1"># Reinsert price index into d.</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">price</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;Sorry, no pair of item costs sum to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">credit</span>
+      <h1><a href="https://raichev.net/ingenue.html">Ingenue</a></h1>
+      <img alt="youtube~DpVfF4U75B8" class="video" src="''" />
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=DpVfF4U75B8">here</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2015-04-12<br>
+          Tags:
+            <a href="https://raichev.net/tag/video.html">
+            video</a>,             <a href="https://raichev.net/tag/music.html">
+            music</a><br />
+        <a href="https://raichev.net/ingenue.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/ingenue.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/the-party-is-over.html">The Party is Over</a></h1>
+      <img alt="youtube~6rVuquKd7Rg" class="video" src="''" />
+<p>Heinberg's talk was part of a teach-in held by the International Form on Globalization in October 2014 in New York City on the theme of techno-utopianism and the fate of the Earth.
+All the talks are available on <a class="reference external" href="http://ifg.org/techno-utopia/full-audio-of-teach-in/">the conference website</a>.</p>
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=6rVuquKd7Rg">here</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2015-01-11<br>
+          Tags:
+            <a href="https://raichev.net/tag/video.html">
+            video</a>,             <a href="https://raichev.net/tag/collapse.html">
+            collapse</a><br />
+        <a href="https://raichev.net/the-party-is-over.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/the-party-is-over.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/seven-brothers.html">Seven Brothers</a></h1>
+      <p>Following up on
+<a class="reference external" href="https://github.com/araichev/contours">Contours, A Mathematical Coloring Book</a>,
+here's another contour plot for coloring:</p>
+<img alt="" class="photo" src="https://raichev.net/files/seven_brothers.png" />
+<p>The PDF version is <a class="reference external" href="https://raichev.net/files/seven_brothers.pdf">here</a>.
+The copyright is
+<a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a>.</p>
+<p>Like the other contour plots in the book, this plot was created using <a class="reference external" href="http://www.sagemath.org">Sage</a>.
+Here's the Sage notebook code, in case you want to play with the plot.</p>
+<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="o">^</span><span class="mi">7</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">fast_callable</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">CDF</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">real</span><span class="p">(),</span> <span class="n">f</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">imag</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">g</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">Graphics</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">+=</span> <span class="n">contour_plot</span><span class="p">(</span><span class="n">iterate</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span>
+      <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
-</div>
 
 
       <div class="blogMeta">
         Author: Alex Raichev<br>
-        Date: 2013-04-11<br>
-          Tags:
-            <a href="https://raichev.net/tag/algorithm.html">
-            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
-            puzzle</a><br />
-        <a href="https://raichev.net/store-credit.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/store-credit.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/cat-vs-dog.html">Cat Vs. Dog</a></h1>
-      <p>Updated for clarity 23 Sep 2013.</p>
-<p>A friend of mine recently pointed me to Spotify's <a class="reference external" href="https://www.spotify.com/us/jobs/tech/catvsdog/">Cat vs. Dog puzzle</a>.
-The question is long, and so i'll summarize it without its motivating context.</p>
-<p>You are given n votes, each of which is a pair of strings of the form <span class="formula">(<i>Ci</i>, <i>Dj</i>)</span> (a cat-lover vote) or <span class="formula">(<i>Dj</i>, <i>Ci</i>)</span> (a dog-lover) for some integers <span class="formula">1 ≤ <i>i</i>, <i>j</i> ≤ <i>n</i></span>.
-This collection of votes can contain repeats.
-Two votes <span class="formula">(<i>a</i>, <i>b</i>)</span> and <span class="formula">(<i>c</i>, <i>d</i>)</span> are said to conflict if <span class="formula"><i>a</i> = <i>d</i></span> or <span class="formula"><i>b</i> = <i>c</i></span>.
-So a conflict can only occur between a cat-lover vote and a dog-lover vote.
-Your job is to find the size of a maximal subcollection of the votes in which no two votes conflict.</p>
-<div class="section" id="algorithm-1">
-<h2>Algorithm 1</h2>
-<p>Brute-force.
-Run through all possible subcollections of votes and test each for conflicts.
-Choose the biggest non-conflicting subcollection.</p>
-<p>This procedure would take <span class="formula"><i>O</i>(2<sup><i>n</i></sup>)</span> time in the worst case, because there are <span class="formula">2<sup><i>n</i></sup></span> subcollections to check.
-That's very slow.
-Can we be more clever?</p>
-</div>
-<div class="section" id="algorithm-2">
-<h2>Algorithm 2</h2>
-<p>Yes, model the problem with a graph.</p>
-<ol class="arabic simple">
-<li>Distinguish the votes by tagging each with a unique identifier, such as an integer between <span class="formula">1</span> and <span class="formula"><i>n</i></span>.  This takes <span class="formula"><i>O</i>(<i>n</i>)</span> time.</li>
-<li>Build the following undirected graph <span class="formula"><i>G</i></span>. Make each vote a vertex, and add the edge <span class="formula">{<i>u</i>, <i>v</i>}</span> if <span class="formula"><i>u</i></span> and <span class="formula"><i>v</i></span> are conflicting votes. This takes <span class="formula"><i>O</i>(<i>n</i><sup>2</sup>)</span> time.  Notice that <span class="formula"><i>G</i></span> is bipartite, because every edge connects a cat-lover vote to a dog-lover vote and no vertex is both a cat-lover vote and a dog-lover vote.</li>
-<li>Notice that every maximal subset of nonconflicting votes is the complement of a minimum vertex cover for <span class="formula"><i>G</i></span>.  So find the size <span class="formula"><i>k</i></span> of a minimum vertex cover for <span class="formula"><i>G</i></span> and return <span class="formula"><i>n</i> − <i>k</i></span>.  Now, <a class="reference external" href="https://en.wikipedia.org/wiki/Minimum_vertex_cover">finding the size of a minimum vertex cover in an arbitrary undirected graph is an NP-complete problem</a>, and there's no known sub-exponential time way to do that.  However, our graph is bipartite, and so by <a class="reference external" href="http://en.wikipedia.org/wiki/K%C3%B6nig%27s_theorem_%28graph_theory%29">Koenig's theorem</a>, the size of a minimum vertex cover of <span class="formula"><i>G</i></span> equals the size of a maximum matching for <span class="formula"><i>G</i></span>, the latter of which can be found by the <a class="reference external" href="https://en.wikipedia.org/wiki/Hopcroft%E2%80%93Karp_algorithm">Hopcroft-Karp algorithm</a> in <span class="formula"><i>O</i>(|<i>E</i>|<span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>n</i></span><span class="ignored">)</span></span>)</span> time, where <span class="formula">|<i>E</i>|</span> is the number of edges in <span class="formula"><i>G</i></span>.  In the worst case, <span class="formula">|<i>E</i>| = <i>n</i><sup>2</sup></span> and running Hopcroft-Karp takes <span class="formula"><i>O</i>(<i>n</i><sup>2.5</sup>)</span> time.</li>
-</ol>
-<p>So all up, Algorithm 2 takes <span class="formula"><i>O</i>(<i>n</i><sup>2.5</sup>)</span> time in the worst case.</p>
-</div>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-04-02<br>
-          Tags:
-            <a href="https://raichev.net/tag/algorithm.html">
-            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
-            puzzle</a><br />
-        <a href="https://raichev.net/cat-vs-dog.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/cat-vs-dog.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/contours-a-mathematical-coloring-book.html">Contours: A Mathematical Coloring Book</a></h1>
-      <p><a class="reference external" href="https://raichev.net/files/contours.pdf">Here</a> is a mathematical coloring book I recently made.
-It contains black and white pictures generated by mathematical formulas which you color in for fun.
-Best printed on size A4 paper or bigger.
-Enjoy and share!</p>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-04-02<br>
+        Date: 2015-01-03<br>
           Tags:
             <a href="https://raichev.net/tag/math.html">
             math</a>,             <a href="https://raichev.net/tag/art.html">
-            art</a>,             <a href="https://raichev.net/tag/book.html">
-            book</a><br />
-        <a href="https://raichev.net/contours-a-mathematical-coloring-book.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/contours-a-mathematical-coloring-book.html">Comment</a>
+            art</a><br />
+        <a href="https://raichev.net/seven-brothers.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/seven-brothers.html">Comment</a>
       </div>
     </div>
     <div class="blogItem">
-      <h1><a href="https://raichev.net/jumping-jack.html">Jumping Jack</a></h1>
-      <p>I'd like to present some solutions to the following puzzle that appeared as
-<a class="reference external" href="http://programmingpraxis.com/2013/03/22/jumping-jack/">March 22, 2013 Programming Praxis puzzle</a>.</p>
-<p>Jack starts at 0 on the number line and jumps one unit in either direction. Each successive jump he makes is longer than the previous by 1 unit, and can be made in either direction.
-Design an algorithm that takes an integer n and returns a shortest sequence of jumps that Jack can perform to reach n along with the length of that sequence.</p>
-<div class="section" id="algorithm-1">
-<h2>Algorithm 1</h2>
-<p>Brute-force.
-Perform a breadth-first search through the binary tree of all valid jump/integer summand sequences (0, -1, 1, -1 - 2, -1 + 2, 1 - 2, 1 + 2, ...) and stop when the target sum n is reached.</p>
-</div>
-<div class="section" id="algorithm-2">
-<h2>Algorithm 2</h2>
-<p>Brute-force with pruning.
-Label the nodes of the binary tree with their partial sums and order the nodes of so that the left child is less than the right child (0, -1, 1, -3, -1, -1, 3, ...).
-Notice that every pair of nodes at the same height with equal partial sums have equal subtrees.
-Notice also that every pair of nodes at the same height with partial sums of opposite sign have mirror image subtrees.
-Notice also that flipping the signs/turns of a path with partial sum s yields a path of the same length to -s.
-So in our breadth-first search, we don't need to search down a node at a given height if we've already discovered a node at the same height with the same magnitude partial sum.</p>
-<p>Analyzing the worst-case time complexity of Algorithm 1 or Algorithm 2 requires knowing at what tree height the given number n is first discovered.
-If you can figure that out, then you probably discovered...</p>
-</div>
-<div class="section" id="algorithm-3">
-<h2>Algorithm 3</h2>
-<p>Smart-force.
-Find the least integer k such that t_k := 1 + 2 + 3 + ... + k &gt;= |n| and t_k has the same parity (evenness/oddness) as |n|.
-Then flip the signs of the summands of t_k in a systematic way to total n.</p>
-<p>Here are the details.
-Notice that t_k = k(k + 1)/2, a triangular number.
-Setting t_k = |n| and solving for k gives the ceiling of (-1 + sqrt(1 + 8 |n|))/2.
-So k equals the ceiling or 1 or 2 plus it, whichever of those three numbers has the same parity as n and is least.
-Here we're using the fact that the set {t, t + s, t + s + (s + 1)} of three consecutive triangular numbers contains both even and odd numbers for any positive integers t, s.
-(Simply check all four parity possibilities for t, s.)</p>
-<p>To find a minimal length sum for n, first compute d := (t_k - n)/2.
-Because t_k &gt;= |n| and t_k and n have the same parity, d lies in the set {0, 1, 2, ..., t_k}.
-Now repeatedly subtract: d = a_k (k) + r_k, r_k = a_{k-1} (k-1) + r_{k-1}, ..., r_2 = a_1 (1) + r_1, choosing each a_i maximally in {0, 1}.
-By the lemma below,  r_1 = 0.
-So d = sum_{i=1}^k a_i i.
-Thus n = t_k - 2d = sum_{i=1}^k i - sum_{i=1}^k 2a_i i = sum_{i=1}^k (1 - 2a_i) i and 1 - 2a_i in {-1, 1}.
-So the sequence b_i := 1 - 2a_i is a path, and by the minimality of k, b_i is a minimal path.</p>
-</div>
-<div class="section" id="algorithm-3-example">
-<h2>Algorithm 3 example</h2>
-<p>Consider the target number n=12.
-According to Algorithm 3, the possibilities for k are 5, 6, 7.
-The corresponding values of t_k are 15, 21, and 28.
-Since 28 is the least of these with the same parity as n, we see that k=7.
-So d = (t_k - n)/2 = 8, which we write as 1 + 7 according to the algorithm.
-Thus a shortest path to 12 is -1 + 2 + 3 + 4 + 5 + 6 - 7.</p>
-<p>I say <em>a</em> shortest path, because shortest paths aren't unique in general.
-For example, 1 + 2 -3 + 4 - 5 + 6 + 7 also works.</p>
-</div>
-<div class="section" id="algorithm-3-correctness">
-<h2>Algorithm 3 correctness</h2>
-<p><em>Lemma</em>: Let A_k = {0, 1, 2, ..., t_k}.
-Then a number lies in A_k if and only if it can be expressed as a sum sum_{i=1}^k a_i i for some a_i in {0, 1}.</p>
-<p><em>Proof</em>: By induction on k.
-First, 0 = sum_{i=1}^0 1, the empty sum.
-Now suppose the result holds for all k - 1 &gt;= 0 and let d in A_k.
-Repeatedly subtract: d = a_k (k) + r_k, r_k = a_{k-1} (k-1) + r_{k-1}, ..., choosing each a_i maximally in {0, 1} and stopping at the first r_j in A_j for some j &lt; k.
-Then by the induction hypothesis, r_j = sum_{i=0}^j b_i i for some b_i in {0, 1}.
-Then d = r_j + sum_{i=j+1}^k a_k i, as desired.
-Conversely, a sum s := sum_{i=1}^k a_i i for a_i in {0, 1} satisfies 0 &lt;= s &lt;= sum_{i=1}^k i = t_k, and so s in A_k.</p>
-</div>
-<div class="section" id="algorithm-3-time-complexity">
-<h2>Algorithm 3 time complexity</h2>
-<p>Assuming that arithmetic operations are constant time, it takes O(1) time to compute k from n, and hence the length of a minimal path to n.
-Then it takes O(k) time to find a minimal length sum for d and O(k) time to use that sum to produce a minimal length sum for n.
-So O(k) = O(sqrt(n)) time all up.</p>
-</div>
+      <h1><a href="https://raichev.net/how-to-shrink-the-economy-without-crashing-it.html">How to Shrink the Economy without Crashing It?</a></h1>
+      <p><a class="reference external" href="http://www.postcarbon.org/how-to-shrink-the-economy-without-crashing-it-a-ten-point-plan/">Here</a> is Richard Heinberg's 10-point plan.</p>
 
 
       <div class="blogMeta">
         Author: Alex Raichev<br>
-        Date: 2013-03-28<br>
+        Date: 2014-12-30<br>
           Tags:
-            <a href="https://raichev.net/tag/algorithm.html">
-            algorithm</a>,             <a href="https://raichev.net/tag/puzzle.html">
-            puzzle</a><br />
-        <a href="https://raichev.net/jumping-jack.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/jumping-jack.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/hourly-wage.html">Hourly Wage</a></h1>
-      <p>Suppose you work in New Zealand, would like to earn a given net weekly income (for 52 weeks per year) after income tax, and would like to work a given number of hours per week (for 47 weeks per year; NZ workers get 4 weeks annual leave plus roughly 1 week of public holidays).
-What gross hourly income must you earn?</p>
-<p>To answer that question, i used the <a class="reference external" href="http://www.ird.govt.nz/how-to/taxrates-codes/itaxsalaryandwage-incometaxrates.html">1 April 2012 to 31 March 2013 NZ income tax rates for individuals</a>, wrote <a class="reference external" href="https://github.com/araichev/hourly_wage">this Python program</a>, and used it with <a class="reference external" href="http://www.sagemath.org">Sage</a> to make this table:</p>
-<object data="https://raichev.net/files/hourly_wage.svg" style="width: 650px;" type="image/svg+xml">
-</object>
-<p>The gross hourly incomes needed are displayed in the main body of the table in New Zealand dollars, rounded to the nearest dollar and excluding GST.
-For example, to earn $1200/week after tax, working 25 hours/week, you need to earn $68/hour before tax.</p>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-03-19<br>
-        <a href="https://raichev.net/hourly-wage.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/hourly-wage.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/science-and-python-retrospective-of-a-mostly-successful-decade.html">Science and Python: retrospective of a (mostly) successful decade</a></h1>
-      <img alt="youtube~F4rFuIb1Ie4" class="video" src="''" />
-<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=F4rFuIb1Ie4">here</a>.</p>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-02-27<br>
-          Tags:
-            <a href="https://raichev.net/tag/video.html">
-            video</a>,             <a href="https://raichev.net/tag/python.html">
-            Python</a>,             <a href="https://raichev.net/tag/science.html">
-            science</a>,             <a href="https://raichev.net/tag/tech.html">
-            tech</a><br />
-        <a href="https://raichev.net/science-and-python-retrospective-of-a-mostly-successful-decade.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/science-and-python-retrospective-of-a-mostly-successful-decade.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/happiness-beyond-thought-2.html">Happiness Beyond Thought 2</a></h1>
-      <p>An interview with Gary Weber, a self-reporter of persistent nonduality and participant in several neuroscience experiments regarding the brain's selfing network.</p>
-<p><a class="reference external" href="http://bloggingheads.tv/videos/14840">Watch it on Bloggingheads.tv</a></p>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-02-13<br>
-          Tags:
-            <a href="https://raichev.net/tag/video.html">
-            video</a>,             <a href="https://raichev.net/tag/nonduality.html">
-            nonduality</a><br />
-        <a href="https://raichev.net/happiness-beyond-thought-2.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/happiness-beyond-thought-2.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/in-grave-danger-of-falling-food.html">In Grave Danger of Falling Food</a></h1>
-      <img alt="youtube~CjWaP0iQmWw" class="video" src="''" />
-<p>1989 documentary about Bill Mollison, cofounder of the permaculture movement.</p>
-<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=CjWaP0iQmWw">here</a>.</p>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-02-13<br>
-          Tags:
-            <a href="https://raichev.net/tag/video.html">
-            video</a>,             <a href="https://raichev.net/tag/resilience.html">
+            <a href="https://raichev.net/tag/resilience.html">
             resilience</a><br />
-        <a href="https://raichev.net/in-grave-danger-of-falling-food.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/in-grave-danger-of-falling-food.html">Comment</a>
-      </div>
-    </div>
-    <div class="blogItem">
-      <h1><a href="https://raichev.net/lies-damned-lies-and-medical-science.html">Lies, Damned Lies, and Medical Science</a></h1>
-      <p>&quot;Much of what medical researchers conclude in their studies is misleading, exaggerated, or flat-out wrong. So why are doctors—to a striking extent—still drawing upon misinformation in their everyday practice? Dr. John Ioannidis has spent his career challenging his peers by exposing their bad science.&quot;</p>
-<p><a class="reference external" href="http://www.theatlantic.com/magazine/archive/2010/11/lies-damned-lies-and-medical-science/308269/?single_page=true">Read the full article on the Atlantic's website</a>.</p>
-
-
-      <div class="blogMeta">
-        Author: Alex Raichev<br>
-        Date: 2013-02-13<br>
-          Tags:
-            <a href="https://raichev.net/tag/article.html">
-            article</a><br />
-        <a href="https://raichev.net/lies-damned-lies-and-medical-science.html">Permalink</a>,
-        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/lies-damned-lies-and-medical-science.html">Comment</a>
+        <a href="https://raichev.net/how-to-shrink-the-economy-without-crashing-it.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/how-to-shrink-the-economy-without-crashing-it.html">Comment</a>
       </div>
     </div>
     <div class="pagination">
@@ -452,6 +242,58 @@ For example, to earn $1200/week after tax, working 25 hours/week, you need to ea
             https://raichev.net/category/blog14.html"
             class=""
             >14</a></li>
+        <li><a href="
+            https://raichev.net/category/blog15.html"
+            class=""
+            >15</a></li>
+        <li><a href="
+            https://raichev.net/category/blog16.html"
+            class=""
+            >16</a></li>
+        <li><a href="
+            https://raichev.net/category/blog17.html"
+            class=""
+            >17</a></li>
+        <li><a href="
+            https://raichev.net/category/blog18.html"
+            class=""
+            >18</a></li>
+        <li><a href="
+            https://raichev.net/category/blog19.html"
+            class=""
+            >19</a></li>
+        <li><a href="
+            https://raichev.net/category/blog20.html"
+            class=""
+            >20</a></li>
+        <li><a href="
+            https://raichev.net/category/blog21.html"
+            class=""
+            >21</a></li>
+        <li><a href="
+            https://raichev.net/category/blog22.html"
+            class=""
+            >22</a></li>
+        <li><a href="
+            https://raichev.net/category/blog23.html"
+            class=""
+            >23</a></li>
+        <li><a href="
+            https://raichev.net/category/blog24.html"
+            class=""
+            >24</a></li>
+        <li><a href="
+            https://raichev.net/category/blog25.html"
+            class=""
+            >25</a></li>
+        <li><a href="
+            https://raichev.net/category/blog26.html"
+            class=""
+            >26</a></li>
+        <li><a href="
+            https://raichev.net/category/blog27.html"
+            class=""
+            >27</a></li>
         <li class="next"><a href="
             https://raichev.net/category/blog10.html"
             >&raquo;</a></li>
@@ -472,14 +314,10 @@ For example, to earn $1200/week after tax, working 25 hours/week, you need to ea
       <p>Powered by <a href="https://blog.getpelican.com/">Pelican</a>
     </div>
 
-  <script src="/js/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
   <script src="/js/graph.js"></script>
-  <script src="/js/jquery.v2.1.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script src="/js/video.js"></script>
-
-
-  <!-- Piwik
-
 
 
 </body>

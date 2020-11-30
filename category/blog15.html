@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>      Alex Raichev > Blog
+ > Blog
+</title>
+  <link rel="icon" type="image/x-icon" href="https://raichev.net/theme/images/favicon.ico" />
+  <link href="https://raichev.net/theme/css/pygment.css" rel="stylesheet" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="https://raichev.net/theme/fonts/medium-fonts.css" />
+  <link href="https://raichev.net/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
+  <link href="https://raichev.net/" type="application/atom+xml" rel="alternate" title="Alex Raichev ATOM Feed" />
+<!-- Using MathJax, with the delimiters $ -->
+<!-- Conflict with pygments for the .mo and .mi -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+    styles: {
+    ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+    },
+    // tex2jax: {inlineMath: [['%','$'], ['\\(','\\)']],processEscapes: true}
+    tex2jax: {inlineMath: [['\\(','\\)']],processEscapes: true}
+    });
+    MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+    MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+    var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
+    VARIANT["normal"].fonts.unshift("MathJax_SansSerif");
+    VARIANT["bold"].fonts.unshift("MathJax_SansSerif-bold");
+    VARIANT["italic"].fonts.unshift("MathJax_SansSerif-italic");
+    VARIANT["-tex-mathit"].fonts.unshift("MathJax_SansSerif-italic");
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script></head>
+<body>
+    <header>
+      <h1>Alex Raichev</h1>
+<!--       <span><img id="flare" src="https://raichev.net/theme/images/frucht.svg"></span>
+ -->
+      <span id="graph"></span>
+    </header>
+
+    <nav>
+<ul>
+          <li><a href="/index.html"
+>Welcome</a></li>
+<li>&middot;<li>          <li><a href="/pages/works.html"
+>Works</a></li>
+<li>&middot;<li>          <li><a href="/blog.html"
+              class="active"
+>Blog</a></li>
+<li>&middot;<li>          <li><a href="/archives.html"
+>Blogindex</a></li>
+      </ul>
+    </nav>
+
+    <div id="mainContent">
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/three-logicians.html">Three Logicians</a></h1>
+      <p></p>
+<img alt="" src="https://raichev.net/files/three_logicians.png" style="width: 500px;" />
+<p>Taken from <a class="reference external" href="http://spikedmath.com/445.html">Spiked Math</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-12-13<br>
+          Tags:
+            <a href="https://raichev.net/tag/comic.html">
+            comic</a>,             <a href="https://raichev.net/tag/math.html">
+            math</a><br />
+        <a href="https://raichev.net/three-logicians.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/three-logicians.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/idioteque.html">Idioteque</a></h1>
+      <img alt="youtube~vngvzO5zuJE" class="video" src="''" />
+<p>I haven't seen enough.
+You haven't seen enough.</p>
+<p>Video sourced from YouTube <a class="reference external" href="https://www.youtube.com/watch?v=vngvzO5zuJE">here</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-10-30<br>
+          Tags:
+            <a href="https://raichev.net/tag/video.html">
+            video</a>,             <a href="https://raichev.net/tag/music.html">
+            music</a><br />
+        <a href="https://raichev.net/idioteque.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/idioteque.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/transitfeed-patch.html">Transitfeed Patch</a></h1>
+      <p>For the <a class="reference external" href="http://gtfsexplorer.net">GTFS Explorer</a> project i've been working on, i needed to convert GTFS feeds to <a class="reference external" href="https://en.wikipedia.org/wiki/Kml">KML</a>.
+Google's <a class="reference external" href="https://code.google.com/p/googletransitdatafeed/downloads/detail?name=transitfeed-1.2.12.tar.gz&amp;can=2&amp;q=">transitfeed package</a> is designed to do this, but the latest version (1.2.12) has a bug in it which prevents the KML writer from being imported.</p>
+<p>Searching the web on the issue, i found Dylan Vassallo's Github repo <a class="reference external" href="https://github.com/dylanvee/pybcp47">pybcp47</a>, which helped me create this patch to squash the bug: <a class="reference external" href="https://raichev.net/files/transitfeed-1.2.13_unofficial.tar.gz">transitfeed-1.2.13_unofficial.tar.gz</a>.</p>
+<p>To test the KML output online, i used <a class="reference external" href="http://display-kml.appspot.com/">this site</a>.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-10-20<br>
+          Tags:
+            <a href="https://raichev.net/tag/software.html">
+            software</a><br />
+        <a href="https://raichev.net/transitfeed-patch.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/transitfeed-patch.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/what-is-this.html">What is This?</a></h1>
+      <p>Can you guess what this Chinese-made product is, given the following product description printed on its box?  Not to give it away too easily, i've replaced one word with +++.</p>
+<ol class="arabic simple">
+<li>This product is a new science and technology product and made with high and new science and technology.  It can illuminate only placing it in rhythm.</li>
+<li>No need any power.  No environmental pollution.  Low noise and health.  Comparing with common +++ it can be several times on lift.</li>
+<li>Constantly using this health +++, it can benefit to your palm, arm and shoulder stretching and blood circulation, so as to let your hands relax and brain clever, hand and brain coordinate and promote your brain memory and health composition.</li>
+</ol>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-10-20<br>
+          Tags:
+            <a href="https://raichev.net/tag/puzzle.html">
+            puzzle</a><br />
+        <a href="https://raichev.net/what-is-this.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/what-is-this.html">Comment</a>
+      </div>
+    </div>
+    <div class="blogItem">
+      <h1><a href="https://raichev.net/experience-vs-memory.html">Experience vs Memory</a></h1>
+      <img alt="youtube~XgRlrBl-7Yg" class="video" src="''" />
+<p>Pychologist Daniel Kahnemann explains that our &quot;experiencing selves&quot; and our &quot;remembering selves&quot; perceive happiness differently.</p>
+
+
+      <div class="blogMeta">
+        Author: Alex Raichev<br>
+        Date: 2013-08-24<br>
+          Tags:
+            <a href="https://raichev.net/tag/psychology.html">
+            psychology</a>,             <a href="https://raichev.net/tag/video.html">
+            video</a><br />
+        <a href="https://raichev.net/experience-vs-memory.html">Permalink</a>,
+        <a href="mailto:alex@raichev.net?subject=comment on https://raichev.net/experience-vs-memory.html">Comment</a>
+      </div>
+    </div>
+    <div class="pagination">
+    <ul>
+        <li class="prev"><a href="
+            https://raichev.net/category/blog14.html"
+            >&laquo;</a></li>
+        <li><a href="
+            https://raichev.net/category/blog.html"
+            class=""
+            >1</a></li>
+        <li><a href="
+            https://raichev.net/category/blog2.html"
+            class=""
+            >2</a></li>
+        <li><a href="
+            https://raichev.net/category/blog3.html"
+            class=""
+            >3</a></li>
+        <li><a href="
+            https://raichev.net/category/blog4.html"
+            class=""
+            >4</a></li>
+        <li><a href="
+            https://raichev.net/category/blog5.html"
+            class=""
+            >5</a></li>
+        <li><a href="
+            https://raichev.net/category/blog6.html"
+            class=""
+            >6</a></li>
+        <li><a href="
+            https://raichev.net/category/blog7.html"
+            class=""
+            >7</a></li>
+        <li><a href="
+            https://raichev.net/category/blog8.html"
+            class=""
+            >8</a></li>
+        <li><a href="
+            https://raichev.net/category/blog9.html"
+            class=""
+            >9</a></li>
+        <li><a href="
+            https://raichev.net/category/blog10.html"
+            class=""
+            >10</a></li>
+        <li><a href="
+            https://raichev.net/category/blog11.html"
+            class=""
+            >11</a></li>
+        <li><a href="
+            https://raichev.net/category/blog12.html"
+            class=""
+            >12</a></li>
+        <li><a href="
+            https://raichev.net/category/blog13.html"
+            class=""
+            >13</a></li>
+        <li><a href="
+            https://raichev.net/category/blog14.html"
+            class=""
+            >14</a></li>
+        <li><a href="
+            https://raichev.net/category/blog15.html"
+            class="active"
+            >15</a></li>
+        <li><a href="
+            https://raichev.net/category/blog16.html"
+            class=""
+            >16</a></li>
+        <li><a href="
+            https://raichev.net/category/blog17.html"
+            class=""
+            >17</a></li>
+        <li><a href="
+            https://raichev.net/category/blog18.html"
+            class=""
+            >18</a></li>
+        <li><a href="
+            https://raichev.net/category/blog19.html"
+            class=""
+            >19</a></li>
+        <li><a href="
+            https://raichev.net/category/blog20.html"
+            class=""
+            >20</a></li>
+        <li><a href="
+            https://raichev.net/category/blog21.html"
+            class=""
+            >21</a></li>
+        <li><a href="
+            https://raichev.net/category/blog22.html"
+            class=""
+            >22</a></li>
+        <li><a href="
+            https://raichev.net/category/blog23.html"
+            class=""
+            >23</a></li>
+        <li><a href="
+            https://raichev.net/category/blog24.html"
+            class=""
+            >24</a></li>
+        <li><a href="
+            https://raichev.net/category/blog25.html"
+            class=""
+            >25</a></li>
+        <li><a href="
+            https://raichev.net/category/blog26.html"
+            class=""
+            >26</a></li>
+        <li><a href="
+            https://raichev.net/category/blog27.html"
+            class=""
+            >27</a></li>
+        <li class="next"><a href="
+            https://raichev.net/category/blog16.html"
+            >&raquo;</a></li>
+    </ul>
+    </div>
+
+  <br><br>
+  <p><b>Why no comments?</b>
+  I used to do public comments but found that moderating and maintaining them took too much time in front of the computer, time better spent playing outdoors.
+  So these days I only do private comments, that is, you can email me comments regarding a post by clicking the 'Comment' link at the bottom of the post.
+  </p>
+
+    </div>
+
+    <div class="clearfloat"></div>
+
+    <div id="footer">
+      <p>Powered by <a href="https://blog.getpelican.com/">Pelican</a>
+    </div>
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="/js/graph.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="/js/video.js"></script>
+
+
+</body>
+</html>

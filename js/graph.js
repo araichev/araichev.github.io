@@ -54,8 +54,8 @@ var links = [
 // ]
 
 // Create the graph container
-var width = 200,
-    height = 100;
+var width = 100,
+    height = 90;
 
 var svg = d3.select("#graph").append("svg")
     .attr("width", width)
@@ -99,8 +99,8 @@ var n = nodes.length;
 nodes.forEach(function(d, i) { d.x = d.y = i*width/n; });
 
 // Create the animation function
-var dx = width/4;
-var dy = height/9;
+var dx = width/12;
+var dy = height/12;
 
 function tick() {
   link.attr("x1", function(d) { return d.source.x - dx; })
